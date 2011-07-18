@@ -17,17 +17,18 @@
                           downs id levenshtein likes link_id name 
                           parent_id replies subreddit subreddit_id ups])
 
-(defn- urlopen (url) 
+(defn- urlopen [url] 
   (let [response (client/get url)]
     (if (= 200 (:status response))
       (:body response)
       nil)))
 
-(defn- asjson (input)
-  (json/read-json input))
+(defn- asjson [input]
+  (if (nil? input) nil
+    (json/read-json input)))
 
 (defn- build-subreddit-url
-  (rname rcount since)
+  [rname rcount since]
     (str "http://www.reddit.com/r/" rname "/.json?" 
       (if-not (nil? since) (str "after=" since))
       (and since rcount "&")
@@ -37,12 +38,14 @@
   (merge (struct-map RedditItem) r))
 
 (defn- parse-reddits [resp]
-  (let [items (:children (:data) resp)]
-    (map create-reddit-item items)))
+  (:children (:data) resp))
 
 (defn subreddit "Get subreddit items"
-  (rname) (subreddit rname nil nil)
-  (rname rcount) (subreddit rname rcount nil)
-  (rname rcount since)
-    (asjson (urlopen (build-subreddit-url rname rcount since))))
+  ([rname] (subreddit rname nil nil))
+  ([rname rcount] (subreddit rname rcount nil))
+  ([rname rcount since]
+    (parse-reddits 
+      (asjson 
+        (urlopen 
+          (build-subreddit-url rname rcount since))))))
 
