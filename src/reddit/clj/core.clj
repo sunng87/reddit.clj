@@ -18,7 +18,7 @@
                           parent_id replies subreddit subreddit_id ups])
 
 (defn- urlopen [url cookie] 
-  (let [response (client/get url)]
+  (let [response (client/get url {:headers {"Cookie" cookie}})]
     (if (= 200 (:status response))
       (:body response)
       nil)))
@@ -53,11 +53,12 @@
         (if-not (nil? (re-find #"reddit_session" cookie)) cookie)))))
 
 (defn subreddit "Get subreddit items"
-  ([rname] (subreddit rname nil nil))
-  ([rname rcount] (subreddit rname rcount nil))
-  ([rname rcount since]
+  ([rname cookie] (subreddit rname cookie nil nil))
+  ([rname cookie rcount] (subreddit rname cookie rcount nil))
+  ([rname cookie rcount since]
     (parse-reddits 
       (asjson 
         (urlopen 
-          (build-subreddit-url rname rcount since))))))
+          (build-subreddit-url rname rcount since) cookie)))))
+
 
