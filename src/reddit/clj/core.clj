@@ -38,7 +38,7 @@
   (merge (struct-map RedditItem) r))
 
 (defn- parse-reddits [resp]
-  (:children (:data) resp))
+  (map :data (:children (:data resp))))
 
 (defn subreddit "Get subreddit items"
   ([rname] (subreddit rname nil nil))
