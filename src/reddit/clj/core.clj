@@ -17,7 +17,7 @@
                           downs id levenshtein likes link_id name 
                           parent_id replies subreddit subreddit_id ups])
 
-(defn- urlopen [url] 
+(defn- urlopen [url cookie] 
   (let [response (client/get url)]
     (if (= 200 (:status response))
       (:body response)
@@ -29,7 +29,9 @@
 
 (defn- build-subreddit-url
   [rname rcount since]
-    (str "http://www.reddit.com/r/" rname "/.json?" 
+    (str "http://www.reddit.com" 
+      (if-not (nil? rname) (str "/r/" rname))
+      "/.json?" 
       (if-not (nil? since) (str "after=" since))
       (and since rcount "&")
       (if-not (nil? rcount) (str "count=" rcount))))
@@ -39,6 +41,16 @@
 
 (defn- parse-reddits [resp]
   (map :data (:children (:data resp))))
+
+(defn login "Login to reddit" [user passwd]
+  (let [resp (client/post "http://www.reddit.com/api/login"
+    {
+      :body (str "user=" user "&passwd=" passwd)
+      :content-type "application/x-www-form-urlencoded"
+    })]
+    (if (= (:status resp) 200) 
+      (let [cookie (get (:headers resp) "set-cookie")]
+        (if-not (nil? (re-find #"reddit_session" cookie)) cookie)))))
 
 (defn subreddit "Get subreddit items"
   ([rname] (subreddit rname nil nil))
