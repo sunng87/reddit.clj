@@ -1,13 +1,13 @@
 # reddit.clj
 
-FIXME: write description
+A reddit api wrapper for clojure
 
 ## Usage
 
-FIXME: write
+TODO
 
 ## License
 
-Copyright (C) 2011 FIXME
+Copyright (C) 2011 Sun Ning
 
 Distributed under the Eclipse Public License, the same as Clojure.
