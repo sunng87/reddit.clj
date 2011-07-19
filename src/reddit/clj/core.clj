@@ -1,7 +1,9 @@
 (ns reddit.clj.core
   "Reddit client for clojure"
   (:require [clj-http.client :as client])
-  (:require [clojure.contrib.json :as json]))
+  (:require [clojure.contrib.json :as json])
+  (:require [clojure.contrib.string :as string])
+  (:import (java.net URLEncoder)))
 
 (defrecord RedditItem [author clicked created created_utc
                        domain downs hidden id is_self levenshtein
@@ -36,6 +38,12 @@
       (and since rcount "&")
       (if-not (nil? rcount) (str "count=" rcount))))
 
+(defn- postdata [data]
+  (string/join "&"
+    (map
+      #(str (string/as-str (key %)) 
+            "=" (URLEncoder/encode (val %) "utf8")) data)))
+
 (defn- create-reddit-item [r]
   (merge (struct-map RedditItem) r))
 
@@ -45,7 +53,7 @@
 (defn login "Login to reddit" [user passwd]
   (let [resp (client/post "http://www.reddit.com/api/login"
     {
-      :body (str "user=" user "&passwd=" passwd)
+      :body (postdata {:user user :passwd passwd})
       :content-type "application/x-www-form-urlencoded"
     })]
     (if (= (:status resp) 200) 
