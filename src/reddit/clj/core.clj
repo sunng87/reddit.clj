@@ -38,6 +38,19 @@
       (and since rcount "&")
       (if-not (nil? rcount) (str "count=" rcount))))
 
+(defn- build-user-url
+  [user qualifier rcount since]
+    (str "http://www.reddit.com/user/" user
+      (if-not (nil? qualifier) (str "/" qualifier))
+      "/.json"
+      (if-not (nil? since) (str "after=" since))
+      (and since rcount "&")
+      (if-not (nil? rcount) (str "count=" rcount))))
+
+(defn- build-comments-url
+  [reddit_id]
+    (str "http://www.reddit.com/comments/" reddit_id "/.json"))
+
 (defn- postdata [data]
   (string/join "&"
     (map
@@ -49,6 +62,9 @@
 
 (defn- parse-reddits [resp]
   (map :data (:children (:data resp))))
+
+(defn- parse-comments [resp]
+  (map :data (:children (:data (nth resp 1)))))
 
 (defn login "Login to reddit" [user passwd]
   (let [resp (client/post "http://www.reddit.com/api/login"
@@ -69,4 +85,19 @@
         (urlopen 
           (build-subreddit-url rname rcount since) cookie)))))
 
+(defn userreddit "Get user reddits"
+  ([user cookie] (userreddit user cookie nil nil nil))
+  ([user cookie qualifier] (userreddit user cookie qualifier nil nil))
+  ([user cookie qualifier rcount] (userreddit user cookie qualifier rcount nil))
+  ([user cookie qualifier rcount since]
+    (parse-reddits 
+      (asjson 
+        (urlopen 
+          (build-user-url user qualifier rcount since) cookie)))))
 
+(defn comments "Get comments for a reddit"
+  ([reddit-id cookie] 
+    (parse-comments
+      (asjson
+        (urlopen
+          (build-comments-url reddit-id) cookie)))))
