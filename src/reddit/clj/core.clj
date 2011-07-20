@@ -5,19 +5,19 @@
   (:require [clojure.contrib.string :as string])
   (:import (java.net URLEncoder)))
 
-(defrecord RedditItem [author clicked created created_utc
-                       domain downs hidden id is_self levenshtein
-                       likes media media_embed name num_comments
-                       over_18 permalink  saved score selftext
-                       selftext_html subreddit subreddit_id thumbnail
-                       title ups url])
-
-(defrecord RedditUser [name link_karma comment_karma created created_utc
-                       has_mail has_mod_mail id is_gold is_mod])
-
-(defrecord RedditComment [author body body_html created created_utc
-                          downs id levenshtein likes link_id name 
-                          parent_id replies subreddit subreddit_id ups])
+;(defrecord RedditItem [author clicked created created_utc
+;                       domain downs hidden id is_self levenshtein
+;                       likes media media_embed name num_comments
+;                       over_18 permalink  saved score selftext
+;                       selftext_html subreddit subreddit_id thumbnail
+;                       title ups url])
+;
+;(defrecord RedditUser [name link_karma comment_karma created created_utc
+;                       has_mail has_mod_mail id is_gold is_mod])
+;
+;(defrecord RedditComment [author body body_html created created_utc
+;                          downs id levenshtein likes link_id name 
+;                          parent_id replies subreddit subreddit_id ups])
 
 (defn- urlopen [url cookie] 
   (let [response (client/get url {:headers {"Cookie" cookie}})]
@@ -57,9 +57,6 @@
       #(str (string/as-str (key %)) 
             "=" (URLEncoder/encode (val %) "utf8")) data)))
 
-(defn- create-reddit-item [r]
-  (merge (struct-map RedditItem) r))
-
 (defn- parse-reddits [resp]
   (map :data (:children (:data resp))))
 
@@ -95,9 +92,25 @@
         (urlopen 
           (build-user-url user qualifier rcount since) cookie)))))
 
-(defn comments "Get comments for a reddit"
+(defn redditcomments "Get comments for a reddit"
   ([reddit-id cookie] 
     (parse-comments
       (asjson
         (urlopen
           (build-comments-url reddit-id) cookie)))))
+
+(defprotocol RedditProtocol
+  "The reddit web API interfaces"
+  (r [this rname rcount after] "Retrieve reddits from subreddit")
+  (user [this user qualifier rcount after] "Retrieve reddits related by user")
+  (comments [this reddit-id] "Retrieve comments for a reddit")
+  (info [this url] "Retrieve url information from reddit")
+  (me [this] "Retrieve user information according to current credential")
+  (mine [this] "Retrieve subcribed subreddits according to current credential "))
+
+(defrecord RedditClient [credential]
+  RedditProtocol
+    (r [this rname rcount after] (subreddit rname credential rcount after))
+    (user [this user qualifier rcount after] (userreddit user credential qualifier rcount after))
+    (comments [this reddit-id] (redditcomments reddit-id credential)))
+
