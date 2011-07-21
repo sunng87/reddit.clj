@@ -1,4 +1,4 @@
-(ns reddit-clj.core
+(ns reddit.clj.core
   "Reddit client for clojure"
   (:require [reddit.clj.client :as client])
 )
