@@ -51,6 +51,13 @@
   [reddit_id]
     (str "http://www.reddit.com/comments/" reddit_id "/.json"))
 
+(defn- build-savedreddit-url 
+  [rcount since]
+  (str "http://www.reddit.com/saved/.json"
+      (if-not (nil? since) (str "after=" since))
+      (and since rcount "&")
+      (if-not (nil? rcount) (str "count=" rcount))))
+
 (defn- postdata [data]
   (string/join "&"
     (map
@@ -72,6 +79,13 @@
     (if (= (:status resp) 200) 
       (let [cookie (get (:headers resp) "set-cookie")]
         (if-not (nil? (re-find #"reddit_session" cookie)) cookie)))))
+
+(defn savedreddits "Get current users' saved reddits"
+  [cookie rcount since]
+    (parse-reddits
+      (asjson
+        (urlopen
+          (build-savedreddit-url rcount since) cookie))))
 
 (defn subreddit "Get subreddit items"
   ([rname cookie] (subreddit rname cookie nil nil))
@@ -101,16 +115,19 @@
 
 (defprotocol RedditProtocol
   "The reddit web API interfaces"
-  (r [this rname rcount after] "Retrieve reddits from subreddit")
+  (reddits [this rname rcount after] "Retrieve reddits from subreddit")
   (user [this user qualifier rcount after] "Retrieve reddits related by user")
   (comments [this reddit-id] "Retrieve comments for a reddit")
+  (domain [this domain-name rcount after] "Retrieve reddits under a domain")
+  (saved [this rcount after] "Retrieve saved reddits")
   (info [this url] "Retrieve url information from reddit")
   (me [this] "Retrieve user information according to current credential")
   (mine [this] "Retrieve subcribed subreddits according to current credential "))
 
 (defrecord RedditClient [credential]
   RedditProtocol
-    (r [this rname rcount after] (subreddit rname credential rcount after))
+    (reddits [this rname rcount after] (subreddit rname credential rcount after))
     (user [this user qualifier rcount after] (userreddit user credential qualifier rcount after))
-    (comments [this reddit-id] (redditcomments reddit-id credential)))
+    (comments [this reddit-id] (redditcomments reddit-id credential))
+    (saved [this rcount after] (savedreddits credential rcount after)))
 
