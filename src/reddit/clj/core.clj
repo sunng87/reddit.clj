@@ -29,23 +29,26 @@
   (if (nil? input) nil
     (json/read-json input)))
 
+(defn- build-pagination-param
+  [rcount since]
+    (str
+      (if-not (nil? since) (str "after=" since))
+      (and since rcount "&")
+      (if-not (nil? rcount) (str "count=" rcount))))
+
 (defn- build-subreddit-url
   [rname rcount since]
     (str "http://www.reddit.com" 
       (if-not (nil? rname) (str "/r/" rname))
       "/.json?" 
-      (if-not (nil? since) (str "after=" since))
-      (and since rcount "&")
-      (if-not (nil? rcount) (str "count=" rcount))))
+      (build-pagination-param rcount since)))
 
 (defn- build-user-url
   [user qualifier rcount since]
     (str "http://www.reddit.com/user/" user
       (if-not (nil? qualifier) (str "/" qualifier))
       "/.json"
-      (if-not (nil? since) (str "after=" since))
-      (and since rcount "&")
-      (if-not (nil? rcount) (str "count=" rcount))))
+      (build-pagination-param rcount since)))
 
 (defn- build-comments-url
   [reddit_id]
@@ -54,9 +57,13 @@
 (defn- build-savedreddit-url 
   [rcount since]
   (str "http://www.reddit.com/saved/.json"
-      (if-not (nil? since) (str "after=" since))
-      (and since rcount "&")
-      (if-not (nil? rcount) (str "count=" rcount))))
+    (build-pagination-param rcount since)))
+
+(defn- build-domain-reddits-url
+  [domain-name rcount since]
+    (str "http://www.reddit.com/domain/" domain-name
+      "/.json"
+      (build-pagination-param rcount since)))  
 
 (defn- postdata [data]
   (string/join "&"
@@ -113,6 +120,15 @@
         (urlopen
           (build-comments-url reddit-id) cookie)))))
 
+(defn domainreddits "Get reddits from specific domain"
+  ([domain-name cookie] (domainreddits domain-name cookie nil nil))
+  ([domain-name cookie rcount] (domainreddits domain-name cookie rcount nil))
+  ([domain-name cookie rcount since] 
+    (parse-reddits
+      (asjson
+        (urlopen
+          (build-domain-reddits-url domain-name rcount since) cookie))))))
+
 (defprotocol RedditProtocol
   "The reddit web API interfaces"
   (reddits [this rname rcount after] "Retrieve reddits from subreddit")
@@ -129,5 +145,6 @@
     (reddits [this rname rcount after] (subreddit rname credential rcount after))
     (user [this user qualifier rcount after] (userreddit user credential qualifier rcount after))
     (comments [this reddit-id] (redditcomments reddit-id credential))
-    (saved [this rcount after] (savedreddits credential rcount after)))
+    (saved [this rcount after] (savedreddits credential rcount after))
+    (domain [this domain-name rcount after] (domainreddits domain-name credential rcount after)))
 
