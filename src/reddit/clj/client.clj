@@ -110,5 +110,7 @@
 
 (defn info "Find information about a url in reddit"
   ([url cookie]
-    ))
+    (parse-reddits 
+      (asjson
+        (urlopen (str "http://www.reddit.com/api/info.json?url=" (URLEncoder/encode url)) cookie)))))
 

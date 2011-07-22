@@ -21,3 +21,8 @@
   (let [rdts (domain r "sunng.info")]
     (is (< 0 (count rdts)))
     (is (= "sunng.info" (:domain (first rdts))))))
+
+(deftest test-info
+  (let [rdts (info r "http://sunng.info/blog/2011/06/jip-embed-on-the-fly-classpath-resolution-for-jython/")]
+    (is (< 0 (count rdts)))
+    (is (= "sunng.info" (:domain (first rdts))))))
