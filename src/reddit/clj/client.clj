@@ -114,3 +114,9 @@
       (asjson
         (urlopen (str "http://www.reddit.com/api/info.json?url=" (URLEncoder/encode url)) cookie)))))
 
+(defn mine "Load user's subscribed subreddits"
+  ([cookie]
+    (parse-reddits
+      (asjson
+        (urlopen "http://www.reddit.com/reddits/mine.json" cookie)))))
+

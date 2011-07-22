@@ -57,5 +57,7 @@
     (domain [this domain-name rcount after] 
       (client/domainreddits domain-name credential rcount after))
     (info [this url] 
-      (client/info url credential)))
+      (client/info url credential))
+    (mine [this]
+      (client/mine credential)))
 
