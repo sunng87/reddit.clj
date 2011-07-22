@@ -120,3 +120,9 @@
       (asjson
         (urlopen "http://www.reddit.com/reddits/mine.json" cookie)))))
 
+(defn me "Load current user information"
+  ([cookie]
+    (:data
+      (asjson
+        (urlopen "http://www.reddit.com/api/me.json" cookie)))))
+

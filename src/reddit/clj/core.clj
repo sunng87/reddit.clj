@@ -59,5 +59,7 @@
     (info [this url] 
       (client/info url credential))
     (mine [this]
-      (client/mine credential)))
+      (client/mine credential))
+    (me [this]
+      (client/me credential)))
 
