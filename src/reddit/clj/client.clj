@@ -5,7 +5,7 @@
   (:import (java.net URLEncoder)))
 
 (defn- urlopen [url cookie] 
-  (let [response (client/get url {:headers {"Cookie" cookie}})]
+  (let [response (client/get url {:headers {"Cookie" cookie "User-Agent" "reddit.clj"}})]
     (if (= 200 (:status response))
       (:body response)
       nil)))
@@ -67,6 +67,7 @@
     {
       :body (postdata {:user user :passwd passwd})
       :content-type "application/x-www-form-urlencoded"
+      :headers {"User-Agent" "reddit.clj"}
     })]
     (if (= (:status resp) 200) 
       (let [cookie (get (:headers resp) "set-cookie")]
@@ -106,4 +107,8 @@
       (asjson
         (urlopen
           (build-domain-reddits-url domain-name rcount since) cookie)))))
+
+(defn info "Find information about a url in reddit"
+  ([url cookie]
+    ))
 
