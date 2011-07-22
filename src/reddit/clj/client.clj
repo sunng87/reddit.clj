@@ -4,11 +4,25 @@
   (:require [clojure.contrib.string :as string])
   (:import (java.net URLEncoder)))
 
+(defn- post-data [data]
+  (string/join "&"
+    (map
+      #(str (string/as-str (key %)) 
+            "=" (URLEncoder/encode (str (val %)) "utf8")) data)))
+
 (defn- urlopen [url cookie] 
   (let [response (client/get url {:headers {"Cookie" cookie "User-Agent" "reddit.clj"}})]
     (if (= 200 (:status response))
       (:body response)
       nil)))
+
+(defn- urlpost [url data cookie]
+  (let [response 
+    (client/post url 
+      {:headers {"Cookie" cookie "User-Agent" "reddit.clj"}
+       :content-type "application/x-www-form-urlencoded"
+       :body (post-data data)})]
+    (if (= 200 (:status response)) response)))
 
 (defn- asjson [input]
   (if (nil? input) nil
@@ -50,12 +64,6 @@
       "/.json"
       (build-pagination-param rcount since)))  
 
-(defn- postdata [data]
-  (string/join "&"
-    (map
-      #(str (string/as-str (key %)) 
-            "=" (URLEncoder/encode (val %) "utf8")) data)))
-
 (defn- parse-reddits [resp]
   (map :data (:children (:data resp))))
 
@@ -63,15 +71,11 @@
   (map :data (:children (:data (nth resp 1)))))
 
 (defn login "Login to reddit" [user passwd]
-  (let [resp (client/post "http://www.reddit.com/api/login"
-    {
-      :body (postdata {:user user :passwd passwd})
-      :content-type "application/x-www-form-urlencoded"
-      :headers {"User-Agent" "reddit.clj"}
-    })]
-    (if (= (:status resp) 200) 
+  (let [resp (urlpost 
+      "http://www.reddit.com/api/login" 
+     {:user user :passwd passwd} nil)]
       (let [cookie (get (:headers resp) "set-cookie")]
-        (if-not (nil? (re-find #"reddit_session" cookie)) cookie)))))
+        (if-not (nil? (re-find #"reddit_session" cookie)) cookie))))
 
 (defn savedreddits "Get current users' saved reddits"
   [cookie rcount since]
@@ -126,3 +130,39 @@
       (asjson
         (urlopen "http://www.reddit.com/api/me.json" cookie)))))
 
+(defn- post-success? [response]
+  (if (nil? response)
+    false
+    (empty? (asjson (:body response)))))
+
+(defn vote [id value uh cookie]
+  (post-success? (urlpost "http://www.reddit.com/api/vote"
+    {:id id :dir value :uh uh} cookie)))
+
+(defn add-comment [id text uh cookie]
+  (post-success? (urlpost "http://www.reddit.com/api/comment"
+    {:thing_id id :text text :uh uh} cookie)))
+
+(defn save [id uh cookie]
+  (post-success? (urlpost "http://www.reddit.com/api/save"
+    {:id id :uh uh} cookie)))
+
+(defn unsave [id uh cookie]
+  (post-success? (urlpost "http://www.reddit.com/api/unsave"
+    {:id id :uh uh} cookie)))
+
+(defn hide [id uh cookie]
+  (post-success? (urlpost "http://www.reddit.com/api/hide"
+    {:id id :uh uh} cookie)))
+
+(defn unhide [id uh cookie]
+  (post-success? (urlpost "http://www.reddit.com/api/unhide"
+    {:id id :uh uh} cookie)))
+
+(defn submit [kind title sr content uh cookie]
+  (let [params {:title title :kind kind :sr sr :r sr :uh uh}]
+    (urlpost "http://www.reddit.com/api/submit" 
+      (cond
+        (= kind "link") (assoc params :url content)
+        (= kind "text") (assoc params :text content))
+      cookie)))

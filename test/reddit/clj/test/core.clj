@@ -1,16 +1,14 @@
 (ns reddit.clj.test.core
   (:use [reddit.clj.core])
-  (:use [clojure.test])
-  (:import [reddit.clj.core RedditClient]))
+  (:use [clojure.test]))
 
 (def testuser "redditclj")
 (def testpasswd "redditclj")
 
-(deftest test-login
-  (let [credential (login testuser testpasswd)]
-    (is (re-find #"reddit_session" credential))))
+(def r (login testuser testpasswd))
 
-(def r (RedditClient. (login testuser testpasswd)))
+(deftest test-login
+  (is (not (nil? r))))
 
 (deftest test-subreddits
   (let [rdts (reddits r "Clojure")]
@@ -30,3 +28,13 @@
 (deftest test-me
   (let [userinfo (me r)]
     (is (= testuser (:name userinfo)))))
+
+(deftest test-mine
+  (let [rdts (mine r)]
+    (is (<= 1 (count rdts)))))
+
+(def wr (enhance r))
+
+(deftest test-votes
+  (is (true? (vote-up wr "t3_iwt49")))
+  (is (true? (vote-down wr "t3_iwt49"))))

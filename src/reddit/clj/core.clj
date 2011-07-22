@@ -3,10 +3,6 @@
   (:require [reddit.clj.client :as client])
 )
 
-(defn login "Login to reddit, return cookie as user credential"
-  [user passwd]
-  (client/login user passwd))
-
 (defprotocol RedditChannels
   "The reddit web API interfaces for reading data from reddit"
   (reddits 
@@ -36,7 +32,7 @@
   (mine 
     [this] 
     "Retrieve subcribed subreddits according to current credential "))
-  
+ 
 (defprotocol RedditOperations  
   "The reddit web API interfaces for writing data into reddit"
   (vote-up
@@ -58,13 +54,19 @@
     [this id]
     "Remove a post from your saved reddits")
   (submit-link
-    "Submit a link to particular subreddit"
-    [this title sr url])
+    [this title url sr]
+    "Submit a link to particular subreddit")
   (submit-text
-    "Submit a self post to particular subreddit"
-    [this title sr text]))
+    [this title text sr]
+    "Submit a self post to particular subreddit")
+  (hide
+    [this id]
+    "Hide a post")
+  (unhide
+    [this id]
+    "Unhide a post"))
 
-(defrecord RedditClient [credential]
+(defrecord RedditReader [credential]
   RedditChannels
     (reddits [this rname] 
       (client/subreddit rname credential nil nil))
@@ -93,3 +95,33 @@
     (me [this]
       (client/me credential)))
 
+
+(defn login "Login to reddit, return cookie as user credential"
+  [user passwd]
+  (RedditReader. (client/login user passwd)))
+  
+(defrecord RedditWriter [credential modhash] 
+  RedditOperations
+    (vote-up [this id] 
+      (client/vote id "1" modhash credential))
+    (vote-down [this id] 
+      (client/vote id "-1" modhash credential))
+    (rescind-vote [this id] 
+      (client/vote id "0" modhash credential))
+    (add-comment [this id text] 
+      (client/add-comment id text modhash credential))
+    (save [this id]
+      (client/save id modhash credential))
+    (unsave [this id] 
+      (client/unsave id modhash credential))
+    (submit-link [this title url sr] 
+      (client/submit "link" title sr url modhash credential))
+    (submit-text [this title text sr] 
+      (client/submit "text" title sr text modhash credential))
+    (hide [this id]
+      (client/hide id modhash credential))
+    (unhide [this id]
+      (client/unhide id modhash credential)))
+
+(defn enhance [r]
+  (RedditWriter. (:credential r) (:modhash (me r))))
