@@ -7,14 +7,17 @@
   [user passwd]
   (client/login user passwd))
 
-(defprotocol RedditProtocol
-  "The reddit web API interfaces"
+(defprotocol RedditChannels
+  "The reddit web API interfaces for reading data from reddit"
   (reddits 
     [this rname] [this rname rcount after]
     "Retrieve reddits from subreddit")
   (user 
     [this user] [this user qualifier] [this user qualifier rcount after]
     "Retrieve reddits related by user")
+  (about
+    [this user]
+    "Retrieve user information")
   (comments 
     [this reddit-id] 
     "Retrieve comments for a reddit")
@@ -33,9 +36,36 @@
   (mine 
     [this] 
     "Retrieve subcribed subreddits according to current credential "))
+  
+(defprotocol RedditOperations  
+  "The reddit web API interfaces for writing data into reddit"
+  (vote-up
+    [this id]
+    "Vote up a comment or post")
+  (vote-down
+    [this id]
+    "Vote down a comment or post")
+  (rescind-vote
+    [this id]
+    "Rescind vote to a comment or post")
+  (add-comment
+    [this id text]
+    "Comment on a post or comment")
+  (save
+    [this id]
+    "Add a post to your saved reddits")
+  (unsave
+    [this id]
+    "Remove a post from your saved reddits")
+  (submit-link
+    "Submit a link to particular subreddit"
+    [this title sr url])
+  (submit-text
+    "Submit a self post to particular subreddit"
+    [this title sr text]))
 
 (defrecord RedditClient [credential]
-  RedditProtocol
+  RedditChannels
     (reddits [this rname] 
       (client/subreddit rname credential nil nil))
     (reddits [this rname rcount after] 
