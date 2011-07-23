@@ -122,7 +122,7 @@
   ([cookie]
     (parse-reddits
       (asjson
-        (urlopen "http://www.reddit.com/reddits/mine.json" cookie)))))
+        (urlopen "http://www.reddit.com/reddits/mine.json?limit=100" cookie)))))
 
 (defn me "Load current user information"
   ([cookie]
