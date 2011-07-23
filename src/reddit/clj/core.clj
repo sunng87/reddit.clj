@@ -66,7 +66,7 @@
     [this id]
     "Unhide a post"))
 
-(defrecord RedditReader [credential]
+(defrecord RedditClient [credential]
   RedditChannels
     (reddits [this rname] 
       (client/subreddit rname credential nil nil))
@@ -98,30 +98,31 @@
 
 (defn login "Login to reddit, return cookie as user credential"
   [user passwd]
-  (RedditReader. (client/login user passwd)))
-  
-(defrecord RedditWriter [credential modhash] 
-  RedditOperations
-    (vote-up [this id] 
-      (client/vote id "1" modhash credential))
-    (vote-down [this id] 
-      (client/vote id "-1" modhash credential))
-    (rescind-vote [this id] 
-      (client/vote id "0" modhash credential))
-    (add-comment [this id text] 
-      (client/add-comment id text modhash credential))
-    (save [this id]
-      (client/save id modhash credential))
-    (unsave [this id] 
-      (client/unsave id modhash credential))
-    (submit-link [this title url sr] 
-      (client/submit "link" title sr url modhash credential))
-    (submit-text [this title text sr] 
-      (client/submit "text" title sr text modhash credential))
-    (hide [this id]
-      (client/hide id modhash credential))
-    (unhide [this id]
-      (client/unhide id modhash credential)))
+  (RedditClient. (client/login user passwd)))
 
 (defn enhance [r]
-  (RedditWriter. (:credential r) (:modhash (me r))))
+  (assoc r :modhash (:modhash (me r))))
+  
+(extend-type RedditClient
+  RedditOperations
+    (vote-up [this id] 
+      (client/vote id "1" (:modhash this) (:credential this)))
+    (vote-down [this id] 
+      (client/vote id "-1" (:modhash this) (:credential this)))
+    (rescind-vote [this id] 
+      (client/vote id "0" (:modhash this) (:credential this)))
+    (add-comment [this id text] 
+      (client/add-comment id text (:modhash this) (:credential this)))
+    (save [this id]
+      (client/save id (:modhash this) (:credential this)))
+    (unsave [this id] 
+      (client/unsave id (:modhash this) (:credential this)))
+    (submit-link [this title url sr] 
+      (client/submit "link" title sr url  (:modhash this) (:credential this)))
+    (submit-text [this title text sr] 
+      (client/submit "text" title sr text (:modhash this) (:credential this)))
+    (hide [this id]
+      (client/hide id  (:modhash this) (:credential this)))
+    (unhide [this id]
+      (client/unhide id  (:modhash this) (:credential this))))
+

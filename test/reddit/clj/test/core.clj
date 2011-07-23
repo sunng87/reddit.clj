@@ -33,8 +33,8 @@
   (let [rdts (mine r)]
     (is (<= 1 (count rdts)))))
 
-(def wr (enhance r))
+(def r (enhance r))
 
 (deftest test-votes
-  (is (true? (vote-up wr "t3_iwt49")))
-  (is (true? (vote-down wr "t3_iwt49"))))
+  (is (true? (vote-up r "t3_iwt49")))
+  (is (true? (vote-down r "t3_iwt49"))))
