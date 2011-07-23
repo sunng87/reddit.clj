@@ -160,9 +160,13 @@
     {:id id :uh uh} cookie)))
 
 (defn submit [kind title sr content uh cookie]
-  (let [params {:title title :kind kind :sr sr :r sr :uh uh}]
-    (urlpost "http://www.reddit.com/api/submit" 
-      (cond
-        (= kind "link") (assoc params :url content)
-        (= kind "text") (assoc params :text content))
-      cookie)))
+    (let [result 
+      (first (last (last (last (last (asjson (:body
+        (let [params {:title title :kind kind :sr sr :r sr :uh uh}]
+          (urlpost "http://www.reddit.com/api/submit" 
+            (cond
+              (= kind "link") (assoc params :url content)
+              (= kind "self") (assoc params :text content))
+            cookie)))))))))]
+      (if-not (nil? result) 
+        (re-matches #"^http:\/\/www\.reddit\.com\/.*" result))))
