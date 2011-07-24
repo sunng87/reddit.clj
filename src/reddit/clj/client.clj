@@ -67,8 +67,20 @@
 (defn- parse-reddits [resp]
   (map :data (:children (:data resp))))
 
+(defn- parse-comment-replies [comment]
+  (assoc comment :replies
+    (if 
+      (nil? (:replies comment))
+      nil      
+      (map parse-comment-replies (parse-reddits (:replies comment))))))
+
+(defn- parse-comment [comment-root]
+  (map parse-comment-replies (parse-reddits comment-root)))
+
 (defn- parse-comments [resp]
-  (map :data (:children (:data (nth resp 1)))))
+  (vector 
+    (parse-reddits (first resp)) 
+    (parse-comment (last resp))))
 
 (defn login "Login to reddit" [user passwd]
   (let [resp (urlpost 
