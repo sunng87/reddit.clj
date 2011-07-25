@@ -1,0 +1,206 @@
+<html>
+  <head>
+    <title>reddit.clj.client - reddit.clj nil API documentation</title>
+    <link href="static/favicon.png" rel="icon" />
+    <link href="static/favicon.png" rel="shortcut icon" />
+    <link media="all" type="text/css" href="static/clojure.css" rel="stylesheet" />
+    <link media="all" type="text/css" href="static/wiki.css" rel="stylesheet" />
+    <link media="all" type="text/css" href="static/internal.css" rel="stylesheet" />
+    <style>.menuWrapper{height: 36px;}</style>
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="http://www.wikispaces.com/_/2009051601/s/internal_ie.css" type="text/css" />
+    <![endif]-->
+  </head>
+<!--
+This document was auto-generated from the source by the clojure autodoc system.
+To report errors or ask questions about the overall documentation structure, formatting,
+etc., contact Tom Faulhaber (google mail name: tomfaulhaber).
+For errors in the documentation of a particular namespace, contact the author of that
+namespace.
+-->
+  <body>
+    <div id="AllContentContainer">
+      <div id="Header">
+	<a id="Logo" href="index.html"><img alt="Clojure" height="100" width="100" src="static/clojure-icon.gif" /></a>
+	<h1><a title="page header title" id="page-header" href="index.html">reddit.clj</a></h1>
+      </div>
+      <div id="leftcolumn"><div style="text-align: center;"></div>
+<div class="menu">
+  <div class="WikiCustomNav WikiElement wiki">
+    <span class="toc-header"><span id="project-name">reddit.clj</span> <span id="version"></span> API</span><br />
+    <ul>
+      <li><a class="wiki_link" href="index.html">Overview</a></li>
+      <li><a class="wiki_link" href="api-index.html">API Index</a></li>
+    </ul>
+    <div class="NamespaceTOC">
+      <span class="toc-header">Namespaces</span>
+      <ul id="left-sidebar-list">
+        <li><a href="reddit.clj.client-api.html" class="wiki_link">reddit.clj.client</a></li><li><a href="reddit.clj.core-api.html" class="wiki_link">reddit.clj.core</a></li>
+      </ul>
+    </div>
+    
+    <a href="http://clojure.org" class="wiki_link">Clojure Home</a>
+  </div>
+</div>
+</div>
+      <div id="rightcolumn">
+	<div id="Content">
+	  <div class="contentBox"><div class="innerContentBox">
+              <div id="content_view" class="wiki wikiPage">
+                <div id="right-sidebar"><div id="toc">
+  <h1 class="nopad">Table of Contents</h1>
+  <div style="margin-left: 1em;" class="toc-section">
+    <a href="#toc0">Overview</a>
+    <div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.client/domainreddits">domainreddits</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.client/info">info</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.client/login">login</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.client/me">me</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.client/mine">mine</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.client/redditcomments">redditcomments</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.client/savedreddits">savedreddits</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.client/subreddit">subreddit</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.client/userreddit">userreddit</a>
+    </div>
+    <br />
+  </div>
+</div>
+</div>
+                <div id="content-tag"><h1 id="overview">API for <span id="namespace-name">reddit.clj.client</span>
+  - <span id="header-project">reddit.clj</span> <span id="header-version"></span> (<span id="header-status"></span>)
+  </h1>
+
+<br />Full namespace name: <span id="long-name">reddit.clj.client</span>
+<p></p>
+<h2>Overview</h2>
+<pre id="namespace-docstr"></pre>
+
+
+<br />
+<h2>Public Variables and Functions</h2>
+<div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.client/domainreddits">domainreddits</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (domainreddits domain-name cookie rcount since)
+</pre>
+  <pre id="var-docstr">Get reddits from specific domain</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.client/info">info</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (info url cookie)
+</pre>
+  <pre id="var-docstr">Find information about a url in reddit</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.client/login">login</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (login user passwd)
+</pre>
+  <pre id="var-docstr">Login to reddit</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.client/me">me</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (me cookie)
+</pre>
+  <pre id="var-docstr">Load current user information</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.client/mine">mine</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (mine cookie)
+</pre>
+  <pre id="var-docstr">Load user's subscribed subreddits</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.client/redditcomments">redditcomments</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (redditcomments reddit-id cookie)
+</pre>
+  <pre id="var-docstr">Get comments for a reddit</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.client/savedreddits">savedreddits</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (savedreddits cookie rcount since)
+</pre>
+  <pre id="var-docstr">Get current users' saved reddits</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.client/subreddit">subreddit</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (subreddit rname cookie rcount since)
+</pre>
+  <pre id="var-docstr">Get subreddit items</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.client/userreddit">userreddit</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (userreddit user cookie qualifier rcount since)
+</pre>
+  <pre id="var-docstr">Get user reddits</pre>
+  
+  
+  
+</div>
+
+
+</div>
+              </div>
+            </div>
+          </div>
+	</div>
+	<div id="foot">
+	  <div style="text-align: center;" id="copyright">No copyright info </div>
+	</div>
+      </div>
+      <div id="DesignedBy">Logo &amp; site design by <a title="Visit Tom Hickey's website." href="http://www.tomhickey.com">Tom Hickey</a>.<br />
+      Clojure auto-documentation system by Tom Faulhaber.</div>
+    </div>
+    <!-- /AllContentContainer -->
+  </body>
+
+</html>

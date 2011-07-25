@@ -1,0 +1,378 @@
+<html>
+  <head>
+    <title>reddit.clj.core - reddit.clj nil API documentation</title>
+    <link href="static/favicon.png" rel="icon" />
+    <link href="static/favicon.png" rel="shortcut icon" />
+    <link media="all" type="text/css" href="static/clojure.css" rel="stylesheet" />
+    <link media="all" type="text/css" href="static/wiki.css" rel="stylesheet" />
+    <link media="all" type="text/css" href="static/internal.css" rel="stylesheet" />
+    <style>.menuWrapper{height: 36px;}</style>
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="http://www.wikispaces.com/_/2009051601/s/internal_ie.css" type="text/css" />
+    <![endif]-->
+  </head>
+<!--
+This document was auto-generated from the source by the clojure autodoc system.
+To report errors or ask questions about the overall documentation structure, formatting,
+etc., contact Tom Faulhaber (google mail name: tomfaulhaber).
+For errors in the documentation of a particular namespace, contact the author of that
+namespace.
+-->
+  <body>
+    <div id="AllContentContainer">
+      <div id="Header">
+	<a id="Logo" href="index.html"><img alt="Clojure" height="100" width="100" src="static/clojure-icon.gif" /></a>
+	<h1><a title="page header title" id="page-header" href="index.html">reddit.clj</a></h1>
+      </div>
+      <div id="leftcolumn"><div style="text-align: center;"></div>
+<div class="menu">
+  <div class="WikiCustomNav WikiElement wiki">
+    <span class="toc-header"><span id="project-name">reddit.clj</span> <span id="version"></span> API</span><br />
+    <ul>
+      <li><a class="wiki_link" href="index.html">Overview</a></li>
+      <li><a class="wiki_link" href="api-index.html">API Index</a></li>
+    </ul>
+    <div class="NamespaceTOC">
+      <span class="toc-header">Namespaces</span>
+      <ul id="left-sidebar-list">
+        <li><a href="reddit.clj.client-api.html" class="wiki_link">reddit.clj.client</a></li><li><a href="reddit.clj.core-api.html" class="wiki_link">reddit.clj.core</a></li>
+      </ul>
+    </div>
+    
+    <a href="http://clojure.org" class="wiki_link">Clojure Home</a>
+  </div>
+</div>
+</div>
+      <div id="rightcolumn">
+	<div id="Content">
+	  <div class="contentBox"><div class="innerContentBox">
+              <div id="content_view" class="wiki wikiPage">
+                <div id="right-sidebar"><div id="toc">
+  <h1 class="nopad">Table of Contents</h1>
+  <div style="margin-left: 1em;" class="toc-section">
+    <a href="#toc0">Overview</a>
+    <div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/RedditChannels">RedditChannels</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/RedditOperations">RedditOperations</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/about">about</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/add-comment">add-comment</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/comments">comments</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/domain">domain</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/hide">hide</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/info">info</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/login">login</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/me">me</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/mine">mine</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/reddits">reddits</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/rescind-vote">rescind-vote</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/save">save</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/saved">saved</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/submit-link">submit-link</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/submit-text">submit-text</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/unhide">unhide</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/unsave">unsave</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/user">user</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/vote-down">vote-down</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/vote-up">vote-up</a>
+    </div>
+    <br />
+  </div>
+</div>
+</div>
+                <div id="content-tag"><h1 id="overview">API for <span id="namespace-name">reddit.clj.core</span>
+  - <span id="header-project">reddit.clj</span> <span id="header-version"></span> (<span id="header-status"></span>)
+  </h1>
+
+<br />Full namespace name: <span id="long-name">reddit.clj.core</span>
+<p></p>
+<h2>Overview</h2>
+<pre id="namespace-docstr">Reddit client for clojure</pre>
+
+
+<br />
+<h2>Public Variables and Functions</h2>
+<div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/RedditChannels">RedditChannels</h2>
+  <span id="var-type">var</span><br />
+  <pre id="var-usage"></pre>
+  <pre id="var-docstr">The reddit web API interfaces for reading data from reddit</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/RedditOperations">RedditOperations</h2>
+  <span id="var-type">var</span><br />
+  <pre id="var-usage"></pre>
+  <pre id="var-docstr">The reddit web API interfaces for writing data into reddit</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/about">about</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (about this user)
+</pre>
+  <pre id="var-docstr">Retrieve user information</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/add-comment">add-comment</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (add-comment this id text)
+</pre>
+  <pre id="var-docstr">Comment on a post or comment</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/comments">comments</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (comments this reddit-id)
+</pre>
+  <pre id="var-docstr">Retrieve comments for a reddit</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/domain">domain</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (domain this domain-name)
+       (domain this domain-name rcount after)
+</pre>
+  <pre id="var-docstr">Retrieve reddits under a domain</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/hide">hide</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (hide this id)
+</pre>
+  <pre id="var-docstr">Hide a post</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/info">info</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (info this url)
+</pre>
+  <pre id="var-docstr">Retrieve url information from reddit</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/login">login</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (login user passwd)
+</pre>
+  <pre id="var-docstr">Login to reddit, return cookie as user credential</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/me">me</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (me this)
+</pre>
+  <pre id="var-docstr">Retrieve user information according to current credential</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/mine">mine</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (mine this)
+</pre>
+  <pre id="var-docstr">Retrieve subcribed subreddits according to current credential </pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/reddits">reddits</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (reddits this rname)
+       (reddits this rname rcount after)
+</pre>
+  <pre id="var-docstr">Retrieve reddits from subreddit</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/rescind-vote">rescind-vote</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (rescind-vote this id)
+</pre>
+  <pre id="var-docstr">Rescind vote to a comment or post</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/save">save</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (save this id)
+</pre>
+  <pre id="var-docstr">Add a post to your saved reddits</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/saved">saved</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (saved this)
+       (saved this rcount after)
+</pre>
+  <pre id="var-docstr">Retrieve saved reddits</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/submit-link">submit-link</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (submit-link this title url sr)
+</pre>
+  <pre id="var-docstr">Submit a link to particular subreddit</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/submit-text">submit-text</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (submit-text this title text sr)
+</pre>
+  <pre id="var-docstr">Submit a self post to particular subreddit</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/unhide">unhide</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (unhide this id)
+</pre>
+  <pre id="var-docstr">Unhide a post</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/unsave">unsave</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (unsave this id)
+</pre>
+  <pre id="var-docstr">Remove a post from your saved reddits</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/user">user</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (user this user)
+       (user this user qualifier)
+       (user this user qualifier rcount after)
+</pre>
+  <pre id="var-docstr">Retrieve reddits related by user</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/vote-down">vote-down</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (vote-down this id)
+</pre>
+  <pre id="var-docstr">Vote down a comment or post</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/vote-up">vote-up</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (vote-up this id)
+</pre>
+  <pre id="var-docstr">Vote up a comment or post</pre>
+  
+  
+  
+</div>
+
+
+</div>
+              </div>
+            </div>
+          </div>
+	</div>
+	<div id="foot">
+	  <div style="text-align: center;" id="copyright">No copyright info </div>
+	</div>
+      </div>
+      <div id="DesignedBy">Logo &amp; site design by <a title="Visit Tom Hickey's website." href="http://www.tomhickey.com">Tom Hickey</a>.<br />
+      Clojure auto-documentation system by Tom Faulhaber.</div>
+    </div>
+    <!-- /AllContentContainer -->
+  </body>
+
+</html>
