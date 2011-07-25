@@ -2,7 +2,7 @@
  ({:source-url nil,
    :wiki-url "reddit.clj.client-api.html",
    :name "reddit.clj.client",
-   :doc nil}
+   :doc "DO NOT use forms under this ns."}
   {:source-url nil,
    :wiki-url "reddit.clj.core-api.html",
    :name "reddit.clj.core",
@@ -17,7 +17,7 @@
    "/reddit.clj.client-api.html#reddit.clj.client/domainreddits",
    :doc "Get reddits from specific domain",
    :var-type "function",
-   :line 120,
+   :line 121,
    :file "reddit/clj/client.clj"}
   {:arglists ([url cookie]),
    :name "info",
@@ -27,7 +27,7 @@
    :wiki-url "/reddit.clj.client-api.html#reddit.clj.client/info",
    :doc "Find information about a url in reddit",
    :var-type "function",
-   :line 127,
+   :line 128,
    :file "reddit/clj/client.clj"}
   {:arglists ([user passwd]),
    :name "login",
@@ -37,7 +37,7 @@
    :wiki-url "/reddit.clj.client-api.html#reddit.clj.client/login",
    :doc "Login to reddit",
    :var-type "function",
-   :line 85,
+   :line 86,
    :file "reddit/clj/client.clj"}
   {:arglists ([cookie]),
    :name "me",
@@ -47,7 +47,7 @@
    :wiki-url "/reddit.clj.client-api.html#reddit.clj.client/me",
    :doc "Load current user information",
    :var-type "function",
-   :line 139,
+   :line 140,
    :file "reddit/clj/client.clj"}
   {:arglists ([cookie]),
    :name "mine",
@@ -57,7 +57,7 @@
    :wiki-url "/reddit.clj.client-api.html#reddit.clj.client/mine",
    :doc "Load user's subscribed subreddits",
    :var-type "function",
-   :line 133,
+   :line 134,
    :file "reddit/clj/client.clj"}
   {:arglists ([reddit-id cookie]),
    :name "redditcomments",
@@ -68,7 +68,7 @@
    "/reddit.clj.client-api.html#reddit.clj.client/redditcomments",
    :doc "Get comments for a reddit",
    :var-type "function",
-   :line 113,
+   :line 114,
    :file "reddit/clj/client.clj"}
   {:arglists ([cookie rcount since]),
    :name "savedreddits",
@@ -79,7 +79,7 @@
    "/reddit.clj.client-api.html#reddit.clj.client/savedreddits",
    :doc "Get current users' saved reddits",
    :var-type "function",
-   :line 92,
+   :line 93,
    :file "reddit/clj/client.clj"}
   {:arglists ([rname cookie rcount since]),
    :name "subreddit",
@@ -89,7 +89,7 @@
    :wiki-url "/reddit.clj.client-api.html#reddit.clj.client/subreddit",
    :doc "Get subreddit items",
    :var-type "function",
-   :line 99,
+   :line 100,
    :file "reddit/clj/client.clj"}
   {:arglists ([user cookie qualifier rcount since]),
    :name "userreddit",
@@ -100,7 +100,7 @@
    "/reddit.clj.client-api.html#reddit.clj.client/userreddit",
    :doc "Get user reddits",
    :var-type "function",
-   :line 106,
+   :line 107,
    :file "reddit/clj/client.clj"}
   {:raw-source-url nil,
    :source-url nil,
@@ -170,7 +170,7 @@
    :arglists ([this url]),
    :doc "Retrieve url information from reddit",
    :name "info"}
-  {:arglists ([user passwd]),
+  {:arglists ([] [user passwd]),
    :name "login",
    :namespace "reddit.clj.core",
    :source-url nil,
