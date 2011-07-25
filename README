@@ -4,7 +4,12 @@ A reddit api wrapper for clojure
 
 ## Usage
 
-TODO
+Declare reddit.clj in your project.clj
+
+    (defproject xxxx "1.0.0-SNAPSHOT"
+      :dependencies [[reddit.clj "0.1.2"]])
+
+Check API document here: http://sunng87.github.com/reddit.clj/
 
 ## License
 
