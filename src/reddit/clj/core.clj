@@ -34,7 +34,13 @@
     "Retrieve user information according to current credential")
   (mine 
     [this] 
-    "Retrieve subcribed subreddits according to current credential "))
+    "Retrieve subcribed subreddits according to current credential ")
+  (inbox
+    [this]
+    "Retrieve messages from inbox")
+  (sent
+    [this]
+    "Retrieve messages from outbox"))
  
 (defprotocol RedditOperations  
   ^{
@@ -99,7 +105,11 @@
     (mine [this]
       (client/mine credential))
     (me [this]
-      (client/me credential)))
+      (client/me credential))
+    (inbox [this]
+      (client/messages "inbox" credential))
+    (sent [this]
+      (client/messages "sent" credential)))
 
 
 (defn login "Login to reddit, return cookie as user credential"

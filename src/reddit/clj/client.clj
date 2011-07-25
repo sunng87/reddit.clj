@@ -184,3 +184,9 @@
         last last last last first)]
       (if-not (nil? result) 
         (re-matches #"^http:\/\/www\.reddit\.com\/.*" result))))
+
+(defn messages [mailbox cookie]
+  (parse-reddits
+    (asjson
+      (urlopen
+        (str "http://www.reddit.com/message/" mailbox "/.json") cookie))))
