@@ -134,3 +134,10 @@
     (unhide [this id]
       (client/unhide id  (:modhash this) (:credential this))))
 
+(defn thing-type "test thing type with name" [name]
+  (if-not (nil? name)
+    (let [type-idx (nth (re-matches #"^t(\d)_.*" name) 1)]
+      (if-not (nil? type-idx)
+        (nth
+          ["comment" "account" "link" "message" "subreddit"]
+          (- (Integer. type-idx) 1))))))

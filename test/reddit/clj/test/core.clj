@@ -38,3 +38,9 @@
 (deftest test-votes
   (is (true? (vote-up r "t3_iwt49")))
   (is (true? (vote-down r "t3_iwt49"))))
+
+(deftest test-thing-type
+  (is (= "comment" (thing-type "t1_c26zchy")))
+  (is (= "link" (thing-type "t3_iupme")))
+  (is (= "subreddit" (thing-type "t5_2fwo")))
+  (is (nil? (thing-type "ak47"))))
