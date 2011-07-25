@@ -97,9 +97,10 @@
 
 
 (defn login "Login to reddit, return cookie as user credential"
-  [user passwd]
+  ([] (RedditClient. nil))
+  ([user passwd]
   (if (nil? user) (RedditClient. nil)
-    (RedditClient. (client/login user passwd))))
+    (RedditClient. (client/login user passwd)))))
 
 (defn enhance [r]
   (assoc r :modhash (:modhash (me r))))
