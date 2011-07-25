@@ -104,26 +104,6 @@
    :file "reddit/clj/client.clj"}
   {:raw-source-url nil,
    :source-url nil,
-   :wiki-url
-   "/reddit.clj.core-api.html#reddit.clj.core/RedditChannels",
-   :namespace "reddit.clj.core",
-   :line 6,
-   :file "/home/nsun2/projects/reddit.clj/src/reddit/clj/core.clj",
-   :var-type "var",
-   :doc "The reddit web API interfaces for reading data from reddit",
-   :name "RedditChannels"}
-  {:raw-source-url nil,
-   :source-url nil,
-   :wiki-url
-   "/reddit.clj.core-api.html#reddit.clj.core/RedditOperations",
-   :namespace "reddit.clj.core",
-   :line 36,
-   :file "/home/nsun2/projects/reddit.clj/src/reddit/clj/core.clj",
-   :var-type "var",
-   :doc "The reddit web API interfaces for writing data into reddit",
-   :name "RedditOperations"}
-  {:raw-source-url nil,
-   :source-url nil,
    :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/about",
    :namespace "reddit.clj.core",
    :var-type "function",
@@ -178,7 +158,7 @@
    :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/login",
    :doc "Login to reddit, return cookie as user credential",
    :var-type "function",
-   :line 99,
+   :line 105,
    :file "/home/nsun2/projects/reddit.clj/src/reddit/clj/core.clj"}
   {:raw-source-url nil,
    :source-url nil,
