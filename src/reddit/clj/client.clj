@@ -1,4 +1,5 @@
 (ns reddit.clj.client  
+  "DO NOT use forms under this ns."
   (:require [clj-http.client :as client])
   (:require [clojure.contrib.json :as json])
   (:require [clojure.contrib.string :as string])
