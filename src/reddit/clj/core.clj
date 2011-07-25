@@ -4,7 +4,10 @@
 )
 
 (defprotocol RedditChannels
-  "The reddit web API interfaces for reading data from reddit"
+  ^{
+      :private true
+      :doc "The reddit web API interfaces for reading data from reddit"
+     }
   (reddits 
     [this rname] [this rname rcount after]
     "Retrieve reddits from subreddit")
@@ -34,7 +37,10 @@
     "Retrieve subcribed subreddits according to current credential "))
  
 (defprotocol RedditOperations  
-  "The reddit web API interfaces for writing data into reddit"
+  ^{
+      :private true
+      :doc "The reddit web API interfaces for writing data into reddit"
+   }
   (vote-up
     [this id]
     "Vote up a comment or post")
