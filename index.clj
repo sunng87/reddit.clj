@@ -144,6 +144,14 @@
    :name "hide"}
   {:raw-source-url nil,
    :source-url nil,
+   :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/inbox",
+   :namespace "reddit.clj.core",
+   :var-type "function",
+   :arglists ([this]),
+   :doc "Retrieve messages from inbox",
+   :name "inbox"}
+  {:raw-source-url nil,
+   :source-url nil,
    :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/info",
    :namespace "reddit.clj.core",
    :var-type "function",
@@ -158,8 +166,8 @@
    :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/login",
    :doc "Login to reddit, return cookie as user credential",
    :var-type "function",
-   :line 105,
-   :file "/home/nsun2/projects/reddit.clj/src/reddit/clj/core.clj"}
+   :line 115,
+   :file "/home/sun/projects/reddit.clj/src/reddit/clj/core.clj"}
   {:raw-source-url nil,
    :source-url nil,
    :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/me",
@@ -211,6 +219,14 @@
    :name "saved"}
   {:raw-source-url nil,
    :source-url nil,
+   :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/sent",
+   :namespace "reddit.clj.core",
+   :var-type "function",
+   :arglists ([this]),
+   :doc "Retrieve messages from outbox",
+   :name "sent"}
+  {:raw-source-url nil,
+   :source-url nil,
    :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/submit-link",
    :namespace "reddit.clj.core",
    :var-type "function",
@@ -225,6 +241,16 @@
    :arglists ([this title text sr]),
    :doc "Submit a self post to particular subreddit",
    :name "submit-text"}
+  {:arglists ([name]),
+   :name "thing-type",
+   :namespace "reddit.clj.core",
+   :source-url nil,
+   :raw-source-url nil,
+   :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/thing-type",
+   :doc "test thing type with name",
+   :var-type "function",
+   :line 147,
+   :file "/home/sun/projects/reddit.clj/src/reddit/clj/core.clj"}
   {:raw-source-url nil,
    :source-url nil,
    :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/unhide",
