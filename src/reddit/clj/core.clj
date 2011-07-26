@@ -11,9 +11,33 @@
   (reddits 
     [this rname] [this rname rcount after]
     "Retrieve reddits from subreddit")
+  (reddits-new
+    [this rname] [this rname rcount after]
+    "Retrieve reddits from subreddit, section *new*")
+  (reddits-controversial
+    [this rname] [this rname rcount after]
+    "Retrieve reddits from subreddit, section *controversial*")
+  (reddits-top
+    [this rname] [this rname rcount after]
+    "Retrieve reddits from subreddit, section *hot*")    
   (user 
-    [this user] [this user qualifier] [this user qualifier rcount after]
+    [this user] [this user rcount after]
     "Retrieve reddits related by user")
+  (user-comments
+    [this user] [this user rcount after]
+    "Retrieve comments submitted by user")
+  (user-submitted
+    [this user] [this user rcount after]
+    "Retrieve links submitted by user")
+  (user-liked
+    [this user] [this user rcount after]
+    "Retrieve things liked by user")
+  (user-disliked
+    [this user] [this user rcount after]
+    "Retrieve thing disliked by user")
+  (user-hidden
+    [this user] [this user rcount after]
+    "Retrieve links hide by user")
   (about
     [this user]
     "Retrieve user information")
@@ -35,10 +59,10 @@
   (mine 
     [this] 
     "Retrieve subcribed subreddits according to current credential ")
-  (inbox
+  (message-inbox
     [this]
     "Retrieve messages from inbox")
-  (sent
+  (message-sent
     [this]
     "Retrieve messages from outbox"))
  
@@ -80,16 +104,46 @@
 
 (defrecord RedditClient [credential]
   RedditChannels
-    (reddits [this rname] 
-      (client/subreddit rname credential nil nil))
+    (reddits [this rname]
+      (client/subreddit rname nil credential nil nil))
     (reddits [this rname rcount after] 
-      (client/subreddit rname credential rcount after))
+      (client/subreddit rname nil credential rcount after))
+    (reddits-new [this rname]
+      (client/subreddit rname "new" credential nil nil))
+    (reddits-new [this rname rcount after] 
+      (client/subreddit rname "new" credential rcount after))
+    (reddits-controversial [this rname]
+      (client/subreddit rname "controversial" credential nil nil))
+    (reddits-controversial [this rname rcount after] 
+      (client/subreddit rname "controversial" credential rcount after))
+    (reddits-top [this rname]
+      (client/subreddit rname "top" credential nil nil))
+    (reddits-top [this rname rcount after] 
+      (client/subreddit rname "top" credential rcount after))
     (user [this user] 
       (client/userreddit user credential nil nil nil))
-    (user [this user qualifier] 
-      (client/userreddit user credential qualifier nil nil))
-    (user [this user qualifier rcount after] 
-      (client/userreddit user credential qualifier rcount after))
+    (user [this user rcount after] 
+      (client/userreddit user credential nil rcount after))
+    (user-comments [this user] 
+      (client/userreddit user credential "comments" nil nil))
+    (user-comments [this user rcount after] 
+      (client/userreddit user credential "comments" rcount after))
+    (user-submitted [this user] 
+      (client/userreddit user credential "submitted" nil nil))
+    (user-submitted [this user rcount after] 
+      (client/userreddit user credential "submitted" rcount after))
+    (user-liked [this user] 
+      (client/userreddit user credential "liked" nil nil))
+    (user-liked [this user rcount after] 
+      (client/userreddit user credential "liked" rcount after))
+    (user-disliked [this user] 
+      (client/userreddit user credential "disliked" nil nil))
+    (user-disliked [this user rcount after] 
+      (client/userreddit user credential "disliked" rcount after))
+    (user-hidden [this user] 
+      (client/userreddit user credential "hidden" nil nil))
+    (user-hidden [this user rcount after] 
+      (client/userreddit user credential "hidden" rcount after))
     (comments [this reddit-id] 
       (client/redditcomments reddit-id credential))
     (saved [this] 
@@ -106,9 +160,9 @@
       (client/mine credential))
     (me [this]
       (client/me credential))
-    (inbox [this]
+    (message-inbox [this]
       (client/messages "inbox" credential))
-    (sent [this]
+    (message-sent [this]
       (client/messages "sent" credential)))
 
 

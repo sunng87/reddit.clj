@@ -44,3 +44,6 @@
   (is (= "link" (thing-type "t3_iupme")))
   (is (= "subreddit" (thing-type "t5_2fwo")))
   (is (nil? (thing-type "ak47"))))
+
+(deftest test-user-liked
+  (is (> (count (user-liked r "redditclj")) 0)))

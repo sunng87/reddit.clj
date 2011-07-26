@@ -37,10 +37,11 @@
       (if-not (nil? rcount) (str "count=" rcount))))
 
 (defn- build-subreddit-url
-  [rname rcount since]
+  [rname qualifier rcount since]
     (str "http://www.reddit.com" 
-      (if-not (nil? rname) (str "/r/" rname))
-      "/.json?" 
+      (if-not (nil? rname) (str "/r/" rname "/"))
+      (str qualifier "/")
+      ".json?" 
       (build-pagination-param rcount since)))
 
 (defn- build-user-url
@@ -98,11 +99,11 @@
           (build-savedreddit-url rcount since) cookie))))
 
 (defn subreddit "Get subreddit items"
-  ([rname cookie rcount since]
+  ([rname qualifier cookie rcount since]
     (parse-reddits 
       (asjson 
         (urlopen 
-          (build-subreddit-url rname rcount since) cookie)))))
+          (build-subreddit-url rname qualifier rcount since) cookie)))))
 
 (defn userreddit "Get user reddits"
   ([user cookie qualifier rcount since]
