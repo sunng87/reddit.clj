@@ -115,8 +115,7 @@ Shortcuts:<br />
 </div><div id="index-body">
   <h2 id="I"><span id="section-head">I</span></h2>
   <pre>
-<span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/inbox">inbox</a><span id="line-content">                        function      reddit.clj.core    Retrieve messages from inbox.
-</span></span><span id="section-content"> <a href="reddit.clj.client-api.html#reddit.clj.client/info">info</a><span id="line-content">                         function      reddit.clj.client  Find information about a url in reddit.
+<span id="section-content"> <a href="reddit.clj.client-api.html#reddit.clj.client/info">info</a><span id="line-content">                         function      reddit.clj.client  Find information about a url in reddit.
 </span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/info">info</a><span id="line-content">                         function      reddit.clj.core    Retrieve url information from reddit.
 </span></span></pre>
 </div><div id="index-body">
@@ -138,6 +137,8 @@ Shortcuts:<br />
   <pre>
 <span id="section-content"> <a href="reddit.clj.client-api.html#reddit.clj.client/me">me</a><span id="line-content">                           function      reddit.clj.client  Load current user information.
 </span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/me">me</a><span id="line-content">                           function      reddit.clj.core    Retrieve user information according to current cre...
+</span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/message-inbox">message-inbox</a><span id="line-content">                function      reddit.clj.core    Retrieve messages from inbox.
+</span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/message-sent">message-sent</a><span id="line-content">                 function      reddit.clj.core    Retrieve messages from outbox.
 </span></span><span id="section-content"> <a href="reddit.clj.client-api.html#reddit.clj.client/mine">mine</a><span id="line-content">                         function      reddit.clj.client  Load user's subscribed subreddits.
 </span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/mine">mine</a><span id="line-content">                         function      reddit.clj.core    Retrieve subcribed subreddits according to current...
 </span></span></pre>
@@ -162,6 +163,9 @@ Shortcuts:<br />
   <pre>
 <span id="section-content"> <a href="reddit.clj.client-api.html#reddit.clj.client/redditcomments">redditcomments</a><span id="line-content">               function      reddit.clj.client  Get comments for a reddit.
 </span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/reddits">reddits</a><span id="line-content">                      function      reddit.clj.core    Retrieve reddits from subreddit.
+</span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/reddits-controversial">reddits-controversial</a><span id="line-content">        function      reddit.clj.core    Retrieve reddits from subreddit, section *controve...
+</span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/reddits-new">reddits-new</a><span id="line-content">                  function      reddit.clj.core    Retrieve reddits from subreddit, section *new*.
+</span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/reddits-top">reddits-top</a><span id="line-content">                  function      reddit.clj.core    Retrieve reddits from subreddit, section *hot*.
 </span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/rescind-vote">rescind-vote</a><span id="line-content">                 function      reddit.clj.core    Rescind vote to a comment or post.
 </span></span></pre>
 </div><div id="index-body">
@@ -170,7 +174,6 @@ Shortcuts:<br />
 <span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/save">save</a><span id="line-content">                         function      reddit.clj.core    Add a post to your saved reddits.
 </span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/saved">saved</a><span id="line-content">                        function      reddit.clj.core    Retrieve saved reddits.
 </span></span><span id="section-content"> <a href="reddit.clj.client-api.html#reddit.clj.client/savedreddits">savedreddits</a><span id="line-content">                 function      reddit.clj.client  Get current users' saved reddits.
-</span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/sent">sent</a><span id="line-content">                         function      reddit.clj.core    Retrieve messages from outbox.
 </span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/submit-link">submit-link</a><span id="line-content">                  function      reddit.clj.core    Submit a link to particular subreddit.
 </span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/submit-text">submit-text</a><span id="line-content">                  function      reddit.clj.core    Submit a self post to particular subreddit.
 </span></span><span id="section-content"> <a href="reddit.clj.client-api.html#reddit.clj.client/subreddit">subreddit</a><span id="line-content">                    function      reddit.clj.client  Get subreddit items.
@@ -186,6 +189,11 @@ Shortcuts:<br />
 <span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/unhide">unhide</a><span id="line-content">                       function      reddit.clj.core    Unhide a post.
 </span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/unsave">unsave</a><span id="line-content">                       function      reddit.clj.core    Remove a post from your saved reddits.
 </span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/user">user</a><span id="line-content">                         function      reddit.clj.core    Retrieve reddits related by user.
+</span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/user-comments">user-comments</a><span id="line-content">                function      reddit.clj.core    Retrieve comments submitted by user.
+</span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/user-disliked">user-disliked</a><span id="line-content">                function      reddit.clj.core    Retrieve thing disliked by user.
+</span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/user-hidden">user-hidden</a><span id="line-content">                  function      reddit.clj.core    Retrieve links hide by user.
+</span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/user-liked">user-liked</a><span id="line-content">                   function      reddit.clj.core    Retrieve things liked by user.
+</span></span><span id="section-content"> <a href="reddit.clj.core-api.html#reddit.clj.core/user-submitted">user-submitted</a><span id="line-content">               function      reddit.clj.core    Retrieve links submitted by user.
 </span></span><span id="section-content"> <a href="reddit.clj.client-api.html#reddit.clj.client/userreddit">userreddit</a><span id="line-content">                   function      reddit.clj.client  Get user reddits.
 </span></span></pre>
 </div><div id="index-body">

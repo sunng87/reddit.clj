@@ -62,25 +62,31 @@ namespace.
     </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#reddit.clj.core/hide">hide</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#reddit.clj.core/inbox">inbox</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#reddit.clj.core/info">info</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#reddit.clj.core/login">login</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#reddit.clj.core/me">me</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/message-inbox">message-inbox</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/message-sent">message-sent</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#reddit.clj.core/mine">mine</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#reddit.clj.core/reddits">reddits</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/reddits-controversial">reddits-controversial</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/reddits-new">reddits-new</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/reddits-top">reddits-top</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#reddit.clj.core/rescind-vote">rescind-vote</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#reddit.clj.core/save">save</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#reddit.clj.core/saved">saved</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#reddit.clj.core/sent">sent</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#reddit.clj.core/submit-link">submit-link</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
@@ -93,6 +99,16 @@ namespace.
       <a href="#reddit.clj.core/unsave">unsave</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#reddit.clj.core/user">user</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/user-comments">user-comments</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/user-disliked">user-disliked</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/user-hidden">user-hidden</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/user-liked">user-liked</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#reddit.clj.core/user-submitted">user-submitted</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#reddit.clj.core/vote-down">vote-down</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
@@ -173,17 +189,6 @@ namespace.
 </div><div id="var-entry">
   <br />
   <hr />
-  <h2 id="reddit.clj.core/inbox">inbox</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (inbox this)
-</pre>
-  <pre id="var-docstr">Retrieve messages from inbox</pre>
-  
-  
-  
-</div><div id="var-entry">
-  <br />
-  <hr />
   <h2 id="reddit.clj.core/info">info</h2>
   <span id="var-type">function</span><br />
   <pre id="var-usage">Usage: (info this url)
@@ -218,6 +223,28 @@ namespace.
 </div><div id="var-entry">
   <br />
   <hr />
+  <h2 id="reddit.clj.core/message-inbox">message-inbox</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (message-inbox this)
+</pre>
+  <pre id="var-docstr">Retrieve messages from inbox</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/message-sent">message-sent</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (message-sent this)
+</pre>
+  <pre id="var-docstr">Retrieve messages from outbox</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
   <h2 id="reddit.clj.core/mine">mine</h2>
   <span id="var-type">function</span><br />
   <pre id="var-usage">Usage: (mine this)
@@ -235,6 +262,42 @@ namespace.
        (reddits this rname rcount after)
 </pre>
   <pre id="var-docstr">Retrieve reddits from subreddit</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/reddits-controversial">reddits-controversial</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (reddits-controversial this rname)
+       (reddits-controversial this rname rcount after)
+</pre>
+  <pre id="var-docstr">Retrieve reddits from subreddit, section *controversial*</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/reddits-new">reddits-new</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (reddits-new this rname)
+       (reddits-new this rname rcount after)
+</pre>
+  <pre id="var-docstr">Retrieve reddits from subreddit, section *new*</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/reddits-top">reddits-top</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (reddits-top this rname)
+       (reddits-top this rname rcount after)
+</pre>
+  <pre id="var-docstr">Retrieve reddits from subreddit, section *hot*</pre>
   
   
   
@@ -269,17 +332,6 @@ namespace.
        (saved this rcount after)
 </pre>
   <pre id="var-docstr">Retrieve saved reddits</pre>
-  
-  
-  
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="reddit.clj.core/sent">sent</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (sent this)
-</pre>
-  <pre id="var-docstr">Retrieve messages from outbox</pre>
   
   
   
@@ -344,10 +396,69 @@ namespace.
   <h2 id="reddit.clj.core/user">user</h2>
   <span id="var-type">function</span><br />
   <pre id="var-usage">Usage: (user this user)
-       (user this user qualifier)
-       (user this user qualifier rcount after)
+       (user this user rcount after)
 </pre>
   <pre id="var-docstr">Retrieve reddits related by user</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/user-comments">user-comments</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (user-comments this user)
+       (user-comments this user rcount after)
+</pre>
+  <pre id="var-docstr">Retrieve comments submitted by user</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/user-disliked">user-disliked</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (user-disliked this user)
+       (user-disliked this user rcount after)
+</pre>
+  <pre id="var-docstr">Retrieve thing disliked by user</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/user-hidden">user-hidden</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (user-hidden this user)
+       (user-hidden this user rcount after)
+</pre>
+  <pre id="var-docstr">Retrieve links hide by user</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/user-liked">user-liked</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (user-liked this user)
+       (user-liked this user rcount after)
+</pre>
+  <pre id="var-docstr">Retrieve things liked by user</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="reddit.clj.core/user-submitted">user-submitted</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (user-submitted this user)
+       (user-submitted this user rcount after)
+</pre>
+  <pre id="var-docstr">Retrieve links submitted by user</pre>
   
   
   

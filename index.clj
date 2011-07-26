@@ -17,7 +17,7 @@
    "/reddit.clj.client-api.html#reddit.clj.client/domainreddits",
    :doc "Get reddits from specific domain",
    :var-type "function",
-   :line 121,
+   :line 122,
    :file "reddit/clj/client.clj"}
   {:arglists ([url cookie]),
    :name "info",
@@ -27,7 +27,7 @@
    :wiki-url "/reddit.clj.client-api.html#reddit.clj.client/info",
    :doc "Find information about a url in reddit",
    :var-type "function",
-   :line 128,
+   :line 129,
    :file "reddit/clj/client.clj"}
   {:arglists ([user passwd]),
    :name "login",
@@ -37,7 +37,7 @@
    :wiki-url "/reddit.clj.client-api.html#reddit.clj.client/login",
    :doc "Login to reddit",
    :var-type "function",
-   :line 86,
+   :line 87,
    :file "reddit/clj/client.clj"}
   {:arglists ([cookie]),
    :name "me",
@@ -47,7 +47,7 @@
    :wiki-url "/reddit.clj.client-api.html#reddit.clj.client/me",
    :doc "Load current user information",
    :var-type "function",
-   :line 140,
+   :line 141,
    :file "reddit/clj/client.clj"}
   {:arglists ([cookie]),
    :name "mine",
@@ -57,7 +57,7 @@
    :wiki-url "/reddit.clj.client-api.html#reddit.clj.client/mine",
    :doc "Load user's subscribed subreddits",
    :var-type "function",
-   :line 134,
+   :line 135,
    :file "reddit/clj/client.clj"}
   {:arglists ([reddit-id cookie]),
    :name "redditcomments",
@@ -68,7 +68,7 @@
    "/reddit.clj.client-api.html#reddit.clj.client/redditcomments",
    :doc "Get comments for a reddit",
    :var-type "function",
-   :line 114,
+   :line 115,
    :file "reddit/clj/client.clj"}
   {:arglists ([cookie rcount since]),
    :name "savedreddits",
@@ -79,9 +79,9 @@
    "/reddit.clj.client-api.html#reddit.clj.client/savedreddits",
    :doc "Get current users' saved reddits",
    :var-type "function",
-   :line 93,
+   :line 94,
    :file "reddit/clj/client.clj"}
-  {:arglists ([rname cookie rcount since]),
+  {:arglists ([rname qualifier cookie rcount since]),
    :name "subreddit",
    :namespace "reddit.clj.client",
    :source-url nil,
@@ -89,7 +89,7 @@
    :wiki-url "/reddit.clj.client-api.html#reddit.clj.client/subreddit",
    :doc "Get subreddit items",
    :var-type "function",
-   :line 100,
+   :line 101,
    :file "reddit/clj/client.clj"}
   {:arglists ([user cookie qualifier rcount since]),
    :name "userreddit",
@@ -100,7 +100,7 @@
    "/reddit.clj.client-api.html#reddit.clj.client/userreddit",
    :doc "Get user reddits",
    :var-type "function",
-   :line 107,
+   :line 108,
    :file "reddit/clj/client.clj"}
   {:raw-source-url nil,
    :source-url nil,
@@ -144,14 +144,6 @@
    :name "hide"}
   {:raw-source-url nil,
    :source-url nil,
-   :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/inbox",
-   :namespace "reddit.clj.core",
-   :var-type "function",
-   :arglists ([this]),
-   :doc "Retrieve messages from inbox",
-   :name "inbox"}
-  {:raw-source-url nil,
-   :source-url nil,
    :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/info",
    :namespace "reddit.clj.core",
    :var-type "function",
@@ -166,7 +158,7 @@
    :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/login",
    :doc "Login to reddit, return cookie as user credential",
    :var-type "function",
-   :line 115,
+   :line 169,
    :file "/home/sun/projects/reddit.clj/src/reddit/clj/core.clj"}
   {:raw-source-url nil,
    :source-url nil,
@@ -176,6 +168,22 @@
    :arglists ([this]),
    :doc "Retrieve user information according to current credential",
    :name "me"}
+  {:raw-source-url nil,
+   :source-url nil,
+   :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/message-inbox",
+   :namespace "reddit.clj.core",
+   :var-type "function",
+   :arglists ([this]),
+   :doc "Retrieve messages from inbox",
+   :name "message-inbox"}
+  {:raw-source-url nil,
+   :source-url nil,
+   :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/message-sent",
+   :namespace "reddit.clj.core",
+   :var-type "function",
+   :arglists ([this]),
+   :doc "Retrieve messages from outbox",
+   :name "message-sent"}
   {:raw-source-url nil,
    :source-url nil,
    :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/mine",
@@ -193,6 +201,31 @@
    :arglists ([this rname] [this rname rcount after]),
    :doc "Retrieve reddits from subreddit",
    :name "reddits"}
+  {:raw-source-url nil,
+   :source-url nil,
+   :wiki-url
+   "/reddit.clj.core-api.html#reddit.clj.core/reddits-controversial",
+   :namespace "reddit.clj.core",
+   :var-type "function",
+   :arglists ([this rname] [this rname rcount after]),
+   :doc "Retrieve reddits from subreddit, section *controversial*",
+   :name "reddits-controversial"}
+  {:raw-source-url nil,
+   :source-url nil,
+   :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/reddits-new",
+   :namespace "reddit.clj.core",
+   :var-type "function",
+   :arglists ([this rname] [this rname rcount after]),
+   :doc "Retrieve reddits from subreddit, section *new*",
+   :name "reddits-new"}
+  {:raw-source-url nil,
+   :source-url nil,
+   :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/reddits-top",
+   :namespace "reddit.clj.core",
+   :var-type "function",
+   :arglists ([this rname] [this rname rcount after]),
+   :doc "Retrieve reddits from subreddit, section *hot*",
+   :name "reddits-top"}
   {:raw-source-url nil,
    :source-url nil,
    :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/rescind-vote",
@@ -219,14 +252,6 @@
    :name "saved"}
   {:raw-source-url nil,
    :source-url nil,
-   :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/sent",
-   :namespace "reddit.clj.core",
-   :var-type "function",
-   :arglists ([this]),
-   :doc "Retrieve messages from outbox",
-   :name "sent"}
-  {:raw-source-url nil,
-   :source-url nil,
    :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/submit-link",
    :namespace "reddit.clj.core",
    :var-type "function",
@@ -249,7 +274,7 @@
    :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/thing-type",
    :doc "test thing type with name",
    :var-type "function",
-   :line 147,
+   :line 201,
    :file "/home/sun/projects/reddit.clj/src/reddit/clj/core.clj"}
   {:raw-source-url nil,
    :source-url nil,
@@ -272,12 +297,50 @@
    :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/user",
    :namespace "reddit.clj.core",
    :var-type "function",
-   :arglists
-   ([this user]
-    [this user qualifier]
-    [this user qualifier rcount after]),
+   :arglists ([this user] [this user rcount after]),
    :doc "Retrieve reddits related by user",
    :name "user"}
+  {:raw-source-url nil,
+   :source-url nil,
+   :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/user-comments",
+   :namespace "reddit.clj.core",
+   :var-type "function",
+   :arglists ([this user] [this user rcount after]),
+   :doc "Retrieve comments submitted by user",
+   :name "user-comments"}
+  {:raw-source-url nil,
+   :source-url nil,
+   :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/user-disliked",
+   :namespace "reddit.clj.core",
+   :var-type "function",
+   :arglists ([this user] [this user rcount after]),
+   :doc "Retrieve thing disliked by user",
+   :name "user-disliked"}
+  {:raw-source-url nil,
+   :source-url nil,
+   :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/user-hidden",
+   :namespace "reddit.clj.core",
+   :var-type "function",
+   :arglists ([this user] [this user rcount after]),
+   :doc "Retrieve links hide by user",
+   :name "user-hidden"}
+  {:raw-source-url nil,
+   :source-url nil,
+   :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/user-liked",
+   :namespace "reddit.clj.core",
+   :var-type "function",
+   :arglists ([this user] [this user rcount after]),
+   :doc "Retrieve things liked by user",
+   :name "user-liked"}
+  {:raw-source-url nil,
+   :source-url nil,
+   :wiki-url
+   "/reddit.clj.core-api.html#reddit.clj.core/user-submitted",
+   :namespace "reddit.clj.core",
+   :var-type "function",
+   :arglists ([this user] [this user rcount after]),
+   :doc "Retrieve links submitted by user",
+   :name "user-submitted"}
   {:raw-source-url nil,
    :source-url nil,
    :wiki-url "/reddit.clj.core-api.html#reddit.clj.core/vote-down",
