@@ -26,20 +26,19 @@
     (if (= 200 (:status response)) response)))
 
 (defn- asjson [input]
-  (if (nil? input) nil
-    (json/read-json input)))
+  (and input (json/read-json input)))
 
 (defn- build-pagination-param
   [rcount since]
     (str
-      (if-not (nil? since) (str "after=" since))
+      (and since (str "after=" since))
       (and since rcount "&")
-      (if-not (nil? rcount) (str "count=" rcount))))
+      (and rcount (str "count=" rcount))))
 
 (defn- build-subreddit-url
   [rname qualifier rcount since]
     (str "http://www.reddit.com" 
-      (if-not (nil? rname) (str "/r/" rname "/"))
+      (and rname (str "/r/" rname "/"))
       (str qualifier "/")
       ".json?" 
       (build-pagination-param rcount since)))
@@ -47,7 +46,7 @@
 (defn- build-user-url
   [user qualifier rcount since]
     (str "http://www.reddit.com/user/" user
-      (if-not (nil? qualifier) (str "/" qualifier))
+      (and qualifier (str "/" qualifier))
       "/.json"
       (build-pagination-param rcount since)))
 
@@ -71,10 +70,8 @@
 
 (defn- parse-comment-replies [comment]
   (assoc comment :replies
-    (if 
-      (nil? (:replies comment))
-      nil      
-      (map parse-comment-replies (parse-reddits (:replies comment))))))
+    (if-let [replies (:replies comment)] 
+      (map parse-comment-replies (parse-reddits replies)))))
 
 (defn- parse-comment [comment-root]
   (map parse-comment-replies (parse-reddits comment-root)))
@@ -89,7 +86,7 @@
       "http://www.reddit.com/api/login" 
      {:user user :passwd passwd} nil)]
       (let [cookie (get (:headers resp) "set-cookie")]
-        (if-not (nil? (re-find #"reddit_session" cookie)) cookie))))
+        (and (re-find #"reddit_session" cookie) cookie))))
 
 (defn savedreddits "Get current users' saved reddits"
   [cookie rcount since]
@@ -130,7 +127,8 @@
   ([url cookie]
     (parse-reddits 
       (asjson
-        (urlopen (str "http://www.reddit.com/api/info.json?url=" (URLEncoder/encode url)) cookie)))))
+        (urlopen 
+          (str "http://www.reddit.com/api/info.json?url=" (URLEncoder/encode url)) cookie)))))
 
 (defn mine "Load user's subscribed subreddits"
   ([cookie]
@@ -178,9 +176,9 @@
       (-> (asjson (:body
         (let [params {:title title :kind kind :sr sr :r sr :uh uh}]
           (urlpost "http://www.reddit.com/api/submit" 
-            (cond
-              (= kind "link") (assoc params :url content)
-              (= kind "self") (assoc params :text content))
+            (case kind
+              "link" (assoc params :url content)
+              "self" (assoc params :text content))
             cookie))))
         last last last last first)]
       (if-not (nil? result) 
