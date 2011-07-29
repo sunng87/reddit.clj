@@ -1,5 +1,6 @@
-(ns reddit.clj.core
-  "Reddit client for clojure"
+(ns #^{:doc "Reddit client for clojure"
+       :author "Sun Ning <classicning@gmail.com>"} 
+  reddit.clj.core  
   (:require [reddit.clj.client :as client])
 )
 
