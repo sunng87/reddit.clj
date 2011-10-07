@@ -1,6 +1,5 @@
-(ns #^{:doc "Reddit client for clojure"
-       :author "Sun Ning <classicning@gmail.com>"} 
-  reddit.clj.core  
+(ns reddit.clj.core
+  "High level reddit API wrapper for clojure."
   (:require [reddit.clj.client :as client])
 )
 

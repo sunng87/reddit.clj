@@ -1,18 +1,20 @@
 (ns reddit.clj.client  
   "DO NOT use forms under this ns."
   (:require [clj-http.client :as client])
-  (:require [clojure.contrib.json :as json])
-  (:require [clojure.contrib.string :as string])
-  (:import (java.net URLEncoder)))
+  (:require [clojure.data.json :as json])
+  (:require [clojure.string :as string])
+  (:import [java.net URLEncoder]))
 
 (defn- post-data [data]
   (string/join "&"
     (map
-      #(str (string/as-str (key %)) 
+      #(str (name (key %)) 
             "=" (URLEncoder/encode (str (val %)) "utf8")) data)))
 
 (defn- urlopen [url cookie] 
-  (let [response (client/get url {:headers {"Cookie" cookie "User-Agent" "reddit.clj"}})]
+  (let [response (client/get url
+                             {:headers {"User-Agent" "reddit.clj"}
+                              :cookies cookie})]
     (if (= 200 (:status response))
       (:body response)
       nil)))
@@ -20,9 +22,10 @@
 (defn- urlpost [url data cookie]
   (let [response 
     (client/post url 
-      {:headers {"Cookie" cookie "User-Agent" "reddit.clj"}
-       :content-type "application/x-www-form-urlencoded"
-       :body (post-data data)})]
+                 {:headers {"User-Agent" "reddit.clj"}
+                  :cookies cookie
+                  :content-type "application/x-www-form-urlencoded"
+                  :body (post-data data)})]
     (if (= 200 (:status response)) response)))
 
 (defn- asjson [input]
@@ -83,10 +86,11 @@
 
 (defn login "Login to reddit" [user passwd]
   (let [resp (urlpost 
-      "http://www.reddit.com/api/login" 
-     {:user user :passwd passwd} nil)]
-      (let [cookie (get (:headers resp) "set-cookie")]
-        (and (re-find #"reddit_session" cookie) cookie))))
+              "http://www.reddit.com/api/login" 
+              {:user user :passwd passwd} nil)
+        cookie (:cookies resp)]
+    (if (contains? cookie "reddit_session")
+      cookie)))
 
 (defn savedreddits "Get current users' saved reddits"
   [cookie rcount since]
