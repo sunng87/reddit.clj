@@ -86,11 +86,13 @@
 
 (defn login "Login to reddit" [user passwd]
   (let [resp (urlpost 
-              "http://www.reddit.com/api/login" 
-              {:user user :passwd passwd} nil)
-        cookie (:cookies resp)]
-    (if (contains? cookie "reddit_session")
-      cookie)))
+              (str "http://www.reddit.com/api/login/" user)
+              {:user user :passwd passwd :api_type "json"} nil)
+        cookie (:cookies resp)
+        result (:body resp)
+        resultmap  (:json (json/read-json result))]
+    (if (empty? (:errors resultmap))
+      {:modhash (:modhash (:data resultmap)) :cookies cookie})))
 
 (defn savedreddits "Get current users' saved reddits"
   [cookie rcount since]

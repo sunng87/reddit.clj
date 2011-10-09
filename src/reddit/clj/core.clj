@@ -102,7 +102,7 @@
     [this id]
     "Unhide a post"))
 
-(defrecord RedditClient [credential]
+(defrecord RedditClient [credential modhash]
   RedditChannels
     (reddits [this rname]
       (client/subreddit rname nil credential nil nil))
@@ -167,13 +167,14 @@
 
 
 (defn login "Login to reddit, return cookie as user credential"
-  ([] (RedditClient. nil))
+  ([] (RedditClient. nil nil))
   ([user passwd]
-  (if (nil? user) (RedditClient. nil)
-    (RedditClient. (client/login user passwd)))))
-
-(defn enhance [r]
-  (assoc r :modhash (:modhash (me r))))
+     (if (nil? user)
+       (RedditClient. nil nil)
+       (let [userdata (client/login user passwd)]
+         (if (nil? userdata)
+           (RedditClient. nil nil)
+           (RedditClient. (:cookies userdata) (:modhash userdata)))))))
   
 (extend-type RedditClient
   RedditOperations
