@@ -34,8 +34,7 @@
     (is (<= 1 (count rdts)))))
 
 (deftest test-votes
-  (is (true? (vote-up r "t3_iwt49")))
-  (is (true? (vote-down r "t3_iwt49"))))
+  (is (true? (vote-up r "t3_l7kwb"))))
 
 (deftest test-thing-type
   (is (= "comment" (thing-type "t1_c26zchy")))
