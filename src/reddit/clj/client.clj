@@ -34,6 +34,7 @@
 (defn- build-pagination-param
   [rcount since]
     (str
+      "?"
       (and since (str "after=" since))
       (and since rcount "&")
       (and rcount (str "count=" rcount))))
