@@ -1,4 +1,4 @@
-(defproject reddit.clj "0.3.0"
+(defproject reddit.clj "0.3.1-SNAPSHOT"
   :description "A reddit API wrapper for clojure"
   :author "Sun Ning <classicning@gmail.com>"
   :dependencies [[org.clojure/clojure "1.2.1"], 
