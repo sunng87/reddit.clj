@@ -7,10 +7,11 @@ A reddit api wrapper for clojure
 Declare reddit.clj in your project.clj
 
     (defproject xxxx "1.0.0-SNAPSHOT"
-      :dependencies [[reddit.clj "0.2.0"]])
+      :dependencies [[reddit.clj "0.3.3"]])
 
 Use reddit.clj in your clojure code:
 
+``` clojure
     ;; include reddit.clj
     (require '[reddit.clj.core :as reddit])
 
@@ -36,8 +37,9 @@ Use reddit.clj in your clojure code:
     ;; be careful to use this API because reddit may ask you for a 
     ;; captcha. But as a library, reddit.clj will return nil on this case.
     (reddit/submit-link rc "title" "url" "subreddit-name")
+```
 
-Check detailed API document here: http://sunng87.github.com/reddit.clj/
+Check detailed API document [here](http://sunng87.github.com/reddit.clj/)
 
 ## License
 
