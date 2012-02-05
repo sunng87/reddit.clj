@@ -1,7 +1,6 @@
 (ns reddit.clj.client  
   "DO NOT use forms under this ns."
   (:require [clj-http.client :as client])
-  (:require [clojure.data.json :as json])
   (:require [clojure.string :as string])
   (:import [java.net URLEncoder]))
 
@@ -14,7 +13,8 @@
 (defn- urlopen [url cookie] 
   (let [response (client/get url
                              {:headers {"User-Agent" "reddit.clj"}
-                              :cookies cookie})]
+                              :cookies cookie
+                              :as :json})]
     (if (= 200 (:status response))
       (:body response)
       nil)))
@@ -25,11 +25,9 @@
                  {:headers {"User-Agent" "reddit.clj"}
                   :cookies cookie
                   :content-type "application/x-www-form-urlencoded"
-                  :body (post-data data)})]
+                  :body (post-data data)
+                  :as :json})]
     (if (= 200 (:status response)) response)))
-
-(defn- asjson [input]
-  (and input (json/read-json input)))
 
 (defn- build-pagination-param
   [rcount since]
@@ -91,68 +89,60 @@
               {:user user :passwd passwd :api_type "json"} nil)
         cookie (:cookies resp)
         result (:body resp)
-        resultmap  (:json (json/read-json result))]
+        resultmap (:json result)]
     (if (empty? (:errors resultmap))
       {:modhash (:modhash (:data resultmap)) :cookies cookie})))
 
 (defn savedreddits "Get current users' saved reddits"
   [cookie rcount since]
     (parse-reddits
-      (asjson
-        (urlopen
-          (build-savedreddit-url rcount since) cookie))))
+     (urlopen
+      (build-savedreddit-url rcount since) cookie)))
 
 (defn subreddit "Get subreddit items"
   ([rname qualifier cookie rcount since]
     (parse-reddits 
-      (asjson 
-        (urlopen 
-          (build-subreddit-url rname qualifier rcount since) cookie)))))
+     (urlopen 
+      (build-subreddit-url rname qualifier rcount since) cookie))))
 
 (defn userreddit "Get user reddits"
   ([user cookie qualifier rcount since]
     (parse-reddits 
-      (asjson 
-        (urlopen 
-          (build-user-url user qualifier rcount since) cookie)))))
+     (urlopen 
+      (build-user-url user qualifier rcount since) cookie))))
 
 (defn redditcomments "Get comments for a reddit"
   ([reddit-id cookie] 
     (parse-comments
-      (asjson
-        (urlopen
-          (build-comments-url reddit-id) cookie)))))
+     (urlopen
+      (build-comments-url reddit-id) cookie))))
 
 (defn domainreddits "Get reddits from specific domain"
   ([domain-name cookie rcount since] 
     (parse-reddits
-      (asjson
-        (urlopen
-          (build-domain-reddits-url domain-name rcount since) cookie)))))
+     (urlopen
+      (build-domain-reddits-url domain-name rcount since) cookie))))
 
 (defn info "Find information about a url in reddit"
   ([url cookie]
     (parse-reddits 
-      (asjson
-        (urlopen 
-          (str "http://www.reddit.com/api/info.json?url=" (URLEncoder/encode url)) cookie)))))
+     (urlopen 
+      (str "http://www.reddit.com/api/info.json?url=" (URLEncoder/encode url)) cookie))))
 
 (defn mine "Load user's subscribed subreddits"
   ([cookie]
     (parse-reddits
-      (asjson
-        (urlopen "http://www.reddit.com/reddits/mine.json?limit=100" cookie)))))
+     (urlopen "http://www.reddit.com/reddits/mine.json?limit=100" cookie))))
 
 (defn me "Load current user information"
   ([cookie]
     (:data
-      (asjson
-        (urlopen "http://www.reddit.com/api/me.json" cookie)))))
+     (urlopen "http://www.reddit.com/api/me.json" cookie))))
 
 (defn- post-success? [response]
   (if (nil? response)
     false
-    (empty? (asjson (:body response)))))
+    (empty? (:body response))))
 
 (defn vote [id value uh cookie]
   (post-success? (urlpost "http://www.reddit.com/api/vote"
@@ -180,20 +170,19 @@
 
 (defn submit [kind title sr content uh cookie]
     (let [result 
-      (-> (asjson (:body
+      (-> (:body
         (let [params {:title title :kind kind :sr sr :r sr :uh uh}]
           (urlpost "http://www.reddit.com/api/submit" 
             (case kind
               "link" (assoc params :url content)
               "self" (assoc params :text content))
-            cookie))))
+            cookie)))
         last last last last first)]
       (if-not (nil? result) 
         (re-matches #"^http:\/\/www\.reddit\.com\/.*" result))))
 
 (defn messages [mailbox cookie]
   (parse-reddits
-    (asjson
-      (urlopen
-        (str "http://www.reddit.com/message/" mailbox "/.json") cookie))))
+   (urlopen
+    (str "http://www.reddit.com/message/" mailbox "/.json") cookie)))
 

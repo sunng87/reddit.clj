@@ -21,7 +21,7 @@
     [this rname] [this rname rcount after]
     "Retrieve reddits from subreddit, section *hot*")    
   (user 
-    [this user] [this user rcount after]
+    [this user]
     "Retrieve reddits related by user")
   (user-comments
     [this user] [this user rcount after]
@@ -122,8 +122,6 @@
       (client/subreddit rname "top" credential rcount after))
     (user [this user] 
       (client/userreddit user credential nil nil nil))
-    (user [this user rcount after] 
-      (client/userreddit user credential nil rcount after))
     (user-comments [this user] 
       (client/userreddit user credential "comments" nil nil))
     (user-comments [this user rcount after] 
