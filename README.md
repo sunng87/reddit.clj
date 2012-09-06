@@ -7,7 +7,7 @@ A reddit api wrapper for clojure
 Declare reddit.clj in your project.clj
 
     (defproject xxxx "1.0.0-SNAPSHOT"
-      :dependencies [[reddit.clj "0.3.4"]])
+      :dependencies [[reddit.clj "0.3.5"]])
 
 Use reddit.clj in your clojure code:
 
