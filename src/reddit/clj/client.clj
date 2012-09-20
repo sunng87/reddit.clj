@@ -10,19 +10,19 @@
       #(str (name (key %)) 
             "=" (URLEncoder/encode (str (val %)) "utf8")) data)))
 
-(defn- urlopen [url cookie] 
+(defn urlopen [url cookie] 
   (let [response (client/get url
-                             {:headers {"User-Agent" "reddit.clj"}
+                             {:headers {"User-Agent" "reddit.clj - powering an experimental bot by /u/Zak"}
                               :cookies cookie
                               :as :json})]
     (if (= 200 (:status response))
       (:body response)
       nil)))
 
-(defn- urlpost [url data cookie]
+(defn urlpost [url data cookie]
   (let [response 
     (client/post url 
-                 {:headers {"User-Agent" "reddit.clj"}
+                 {:headers {"User-Agent" "reddit.clj - powering an experimental bot by /u/Zak"}
                   :cookies cookie
                   :content-type "application/x-www-form-urlencoded"
                   :body (post-data data)
@@ -54,7 +54,7 @@
 
 (defn- build-comments-url
   [reddit_id]
-    (str "http://www.reddit.com/comments/" reddit_id "/.json"))
+    (str "http://www.reddit.com/r/" reddit_id "/comments.json"))
 
 (defn- build-savedreddit-url 
   [rcount since]
@@ -79,9 +79,9 @@
   (map parse-comment-replies (parse-reddits comment-root)))
 
 (defn- parse-comments [resp]
-  (vector 
-    (parse-reddits (first resp)) 
-    (parse-comment (last resp))))
+  (-> resp
+      :data
+      :children))
 
 (defn login "Login to reddit" [user passwd]
   (let [resp (urlpost 
@@ -186,3 +186,23 @@
    (urlopen
     (str "http://www.reddit.com/message/" mailbox "/.json") cookie)))
 
+(defn removepost [id uh cookie]
+  (post-success?
+   (urlpost "http://www.reddit.com/api/remove"
+            {:id (str "t1_" id)
+             :uh uh
+             :spam false}
+            cookie)))
+
+(defn redditmodqueue [id cookie]
+  (parse-comments
+   (urlopen
+    (str "http://www.reddit.com/r/" id "/about/modqueue.json") cookie)))
+
+(defn get-comment [cookie url]
+  (-> (urlopen (str url ".json") cookie)
+      second
+      :data
+      :children
+      first
+      :data))
