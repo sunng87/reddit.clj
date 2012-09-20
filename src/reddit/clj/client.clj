@@ -42,7 +42,7 @@
     (str "http://www.reddit.com" 
       (and rname (str "/r/" rname "/"))
       (str qualifier "/")
-      ".json?" 
+      ".json" 
       (build-pagination-param rcount since)))
 
 (defn- build-user-url
