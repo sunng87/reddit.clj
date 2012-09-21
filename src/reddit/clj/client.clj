@@ -12,7 +12,7 @@
 
 (defn urlopen [url cookie] 
   (let [response (client/get url
-                             {:headers {"User-Agent" "reddit.clj - powering an experimental bot by /u/Zak"}
+                             {:headers {"User-Agent" "reddit.clj"}
                               :cookies cookie
                               :as :json})]
     (if (= 200 (:status response))
