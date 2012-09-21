@@ -44,6 +44,9 @@
   (comments 
     [this reddit-id] 
     "Retrieve comments for a reddit")
+  (modqueue
+    [this reddit-id]
+    "Retrieve modqueue for a reddit")
   (domain 
     [this domain-name] [this domain-name rcount after]
     "Retrieve reddits under a domain")
@@ -100,7 +103,13 @@
     "Hide a post")
   (unhide
     [this id]
-    "Unhide a post"))
+    "Unhide a post")
+  (remove-post
+   [this id]
+   "Mod-remove a post")
+  (get-comment
+   [this url]
+   "Fetch a comment"))
 
 (defrecord RedditClient [credential modhash]
   RedditChannels
@@ -144,6 +153,8 @@
       (client/userreddit user credential "hidden" rcount after))
     (comments [this reddit-id] 
       (client/redditcomments reddit-id credential))
+    (modqueue [this reddit-id]
+      (client/redditmodqueue reddit-id credential))
     (saved [this] 
       (client/savedreddits credential nil nil))
     (saved [this rcount after]
@@ -195,7 +206,11 @@
     (hide [this id]
       (client/hide id  (:modhash this) (:credential this)))
     (unhide [this id]
-      (client/unhide id  (:modhash this) (:credential this))))
+      (client/unhide id  (:modhash this) (:credential this)))
+    (remove-post [this id]
+                 (client/removepost id (:modhash this) (:credential this)))
+    (get-comment [this url]
+                 (client/get-comment (:credential this) url)))
 
 (defn thing-type "test thing type with name" [name]
   (if-not (nil? name)
