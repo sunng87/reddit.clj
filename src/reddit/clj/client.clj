@@ -22,7 +22,7 @@
 (defn urlpost [url data cookie]
   (let [response 
     (client/post url 
-                 {:headers {"User-Agent" "reddit.clj - powering an experimental bot by /u/Zak"}
+                 {:headers {"User-Agent" "reddit.clj"}
                   :cookies cookie
                   :content-type "application/x-www-form-urlencoded"
                   :body (post-data data)
