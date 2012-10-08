@@ -14,7 +14,9 @@
   (let [response (client/get url
                              {:headers {"User-Agent" "reddit.clj"}
                               :cookies cookie
-                              :as :json})]
+                              :as :json
+                              :socket-timeout 10000
+                              :conn-timeout 10000})]
     (if (= 200 (:status response))
       (:body response)
       nil)))
@@ -26,7 +28,9 @@
                   :cookies cookie
                   :content-type "application/x-www-form-urlencoded"
                   :body (post-data data)
-                  :as :json})]
+                  :as :json
+                  :socket-timeout 10000
+                  :conn-timeout 10000})]
     (if (= 200 (:status response)) response)))
 
 (defn- build-pagination-param
