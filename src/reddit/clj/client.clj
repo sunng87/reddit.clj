@@ -44,8 +44,8 @@
 (defn- build-subreddit-url
   [rname qualifier rcount since]
     (str "http://www.reddit.com" 
-      (and rname (str "/r/" rname "/"))
-      (str qualifier "/")
+      (and rname (str "/r/" rname))
+      (str "/" qualifier "/")
       ".json" 
       (build-pagination-param rcount since)))
 
