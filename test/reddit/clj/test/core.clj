@@ -29,6 +29,10 @@
   (let [userinfo (me r)]
     (is (= testuser (:name userinfo)))))
 
+(deftest test-search
+  (let [results (search r "java")]
+    (is (not (empty? results) ))))
+
 (deftest test-mine
   (let [rdts (mine r)]
     (is (<= 1 (count rdts)))))

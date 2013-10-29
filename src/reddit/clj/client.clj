@@ -138,6 +138,11 @@
     (parse-reddits
      (urlopen "http://www.reddit.com/reddits/mine.json?limit=100" cookie))))
 
+(defn search "Search Sub-Reddits"
+  [q cookie]
+    (parse-reddits
+     (urlopen (format "http://www.reddit.com/subreddits/search.json?limit=100&q=%s" q) cookie)))
+
 (defn me "Load current user information"
   ([cookie]
     (:data
