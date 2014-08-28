@@ -1,7 +1,6 @@
 (ns reddit.clj.core
   "High level reddit API wrapper for clojure."
-  (:require [reddit.clj.client :as client])
-)
+  (:require [reddit.clj.client :as client]))
 
 (defprotocol RedditChannels
   ^{
@@ -59,6 +58,9 @@
   (me 
     [this] 
     "Retrieve user information according to current credential")
+  (search 
+    [this q] 
+    "Search Sub-Reddits")
   (mine 
     [this] 
     "Retrieve subcribed subreddits according to current credential ")
@@ -172,7 +174,9 @@
     (message-inbox [this]
       (client/messages "inbox" credential))
     (message-sent [this]
-      (client/messages "sent" credential)))
+      (client/messages "sent" credential))
+    (search [this q]
+      (client/search q credential)))
 
 
 (defn login "Login to reddit, return cookie as user credential"
