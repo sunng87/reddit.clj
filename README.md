@@ -2,6 +2,8 @@
 
 A reddit api wrapper for clojure
 
+Note that this project is no longer maintained. Feel free to fork it and continue.
+
 ## Usage
 
 Declare reddit.clj in your project.clj
